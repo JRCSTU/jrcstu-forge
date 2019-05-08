@@ -24,7 +24,7 @@ Vagrant.configure("2") do |config|
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
-  # config.vm.box_check_update = false
+  config.vm.box_check_update = false
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
@@ -52,10 +52,9 @@ Vagrant.configure("2") do |config|
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
 
-  # Stop boot-up warning:
+  # Stop the following boot-up warning:
   # 	Sorry, don't know how to check guest version of Virtualbox Guest Additions on this platform. Stopping installation.
-	
-    config.vbguest.auto_update = false
+  config.vbguest.auto_update = false
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -78,10 +77,18 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-'SHELL'
     # Install miniconda in C:\tools\miniconda3 
     # (without chocolatey would be: https://github.com/deto/Miniconda-Install)
-    choco install --no-progress -y miniconda3 --version 4.5.12
+    choco upgrade --no-progress -y miniconda3 --version 4.5.12
 
     # Do not combine apps in taskbar.
     # See https://www.lifewire.com/how-to-disable-taskbar-button-grouping-2626110
-    reg add HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v TaskbarGlomLevel /t  REG_DWORD /d 2 /f
+    
+    Set-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" TaskbarGlomLevel 2
+
+    # Auto-login on boot.
+    # See https://support.microsoft.com/en-us/help/324737/how-to-turn-on-automatic-logon-in-windows
+    Set-Location "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
+    Set-ItemProperty . DefaultUserName vagrant
+    Set-ItemProperty . DefaultPassword vagrant
+    Set-ItemProperty . AutoAdminLogon 1
   SHELL
 end
