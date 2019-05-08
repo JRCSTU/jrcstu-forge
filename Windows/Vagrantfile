@@ -1,5 +1,5 @@
 # -*- mode: ruby -*-
-# vi: set ft=ruby :
+# vi: set ft=ruby sts=2 ts=2 sw=2 :
 
 # PLUGINS needed:
 #   vagrant install plugin \
@@ -61,11 +61,16 @@ Vagrant.configure("2") do |config|
   # Example for VirtualBox:
   #
   config.vm.provider "virtualbox" do |vb|
-  #   # Display the VirtualBox GUI when booting the machine
+    # Display the VirtualBox GUI when booting the machine
     vb.gui = true
-  #
-  #   # Customize the amount of memory on the VM:
-  #   vb.memory = "1024"
+
+    # vb.memory = "1024"
+    # vb.cpus = "2"
+
+    # From https://zwischenzugs.com/2017/10/27/ten-things-i-wish-id-known-before-using-vagrant/
+    #      https://stackoverflow.com/questions/37562740/enable-dragndrop-in-vagrant-privisioning
+    vb.customize ['modifyvm', :id, '--clipboard', 'bidirectional']
+    vb.customize ["modifyvm", :id, "--draganddrop", "bidirectional"]
   end
   #
   # View the documentation for the provider you are using for more
@@ -74,21 +79,34 @@ Vagrant.configure("2") do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  config.vm.provision "shell", inline: <<-'SHELL'
-    # Install miniconda in C:\tools\miniconda3 
-    # (without chocolatey would be: https://github.com/deto/Miniconda-Install)
-    choco upgrade --no-progress -y miniconda3 --version 4.5.12
+  config.vm.provision "shell" do |s|
+    s.inline = <<-'SHELL'
+     # Do not combine apps in taskbar.
+      # From https://www.lifewire.com/how-to-disable-taskbar-button-grouping-2626110
+      Set-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" TaskbarGlomLevel 2
 
-    # Do not combine apps in taskbar.
-    # See https://www.lifewire.com/how-to-disable-taskbar-button-grouping-2626110
-    
-    Set-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" TaskbarGlomLevel 2
+      # Auto-login on boot.
+      # See https://support.microsoft.com/en-us/help/324737/how-to-turn-on-automatic-logon-in-windows
+      Set-Location "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
+      Set-ItemProperty . DefaultUserName vagrant
+      Set-ItemProperty . DefaultPassword vagrant
+      Set-ItemProperty . AutoAdminLogon 1
 
-    # Auto-login on boot.
-    # See https://support.microsoft.com/en-us/help/324737/how-to-turn-on-automatic-logon-in-windows
-    Set-Location "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
-    Set-ItemProperty . DefaultUserName vagrant
-    Set-ItemProperty . DefaultPassword vagrant
-    Set-ItemProperty . AutoAdminLogon 1
-  SHELL
+      # Install Edge browser (for tests).
+      # From https://www.techmesto.com/reinstall-microsoft-edge-windows-10/
+      Get-AppXPackage -AllUsers -Name Microsoft.MicrosoftEdge | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register “$($_.InstallLocation)\AppXManifest.xml” -verbose}
+
+      # Originally chocolatey-tools installed into "C:\tools"
+      $Env:ChocolateyToolsLocation = "C:\Apps"
+
+      # Install chocolatey packages listed in vbguest's shared-folder.
+      choco install -y --no-progress --limitoutput C:/vagrant/chocopackages.config
+
+      # TotalCommander: show hidden files.
+      Copy-Item  C:/vagrant/wincmd.ini $env:APPDATA/GHISLER/
+
+ 
+      Restart-Computer -Force
+    SHELL
+  end
 end
