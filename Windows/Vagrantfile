@@ -7,7 +7,7 @@
 #       winrm-fs \
 #       winrm-elevated \
 #       vagrant-vbguest
-#
+
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
@@ -19,7 +19,7 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "gusztavvargadr/windows-server"
+  config.vm.box = "gusztavvargadr/windows-10"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -51,37 +51,46 @@ Vagrant.configure("2") do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
-
-  # Stop the following boot-up warning:
+  
+  # Stop the following boot-up warning in Windows-Server:
   # 	Sorry, don't know how to check guest version of Virtualbox Guest Additions on this platform. Stopping installation.
-  config.vbguest.auto_update = false
+  # config.vbguest.auto_update = false
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
   config.vm.provider "virtualbox" do |vb|
+    vb.name = "co2_win10_dev"
     # Display the VirtualBox GUI when booting the machine
     vb.gui = true
 
-    # vb.memory = "1024"
-    # vb.cpus = "2"
+    vb.memory = "2048"
+    vb.cpus = "2"
 
     # From https://zwischenzugs.com/2017/10/27/ten-things-i-wish-id-known-before-using-vagrant/
     #      https://stackoverflow.com/questions/37562740/enable-dragndrop-in-vagrant-privisioning
     vb.customize ['modifyvm', :id, '--clipboard', 'bidirectional']
     vb.customize ["modifyvm", :id, "--draganddrop", "bidirectional"]
+
+    # See https://www.vagrantup.com/docs/virtualbox/configuration.html#linked-clone
+    vb.linked_clone = true
   end
-  #
+
   # View the documentation for the provider you are using for more
   # information on available options.
 
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  config.vm.provision "shell" do |s|
+  config.vm.provision "appinstall", type: "shell" do |s|
     s.inline = <<-'SHELL'
-     # Do not combine apps in taskbar.
+      Set-PSDebug -Trace 1
+
+      # Suppress(?) Network-discovery question.
+      Set-NetConnectionProfile -Name Network -NetworkCategory Private
+
+      # Do not combine apps in taskbar.
       # From https://www.lifewire.com/how-to-disable-taskbar-button-grouping-2626110
       Set-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" TaskbarGlomLevel 2
 
@@ -92,21 +101,16 @@ Vagrant.configure("2") do |config|
       Set-ItemProperty . DefaultPassword vagrant
       Set-ItemProperty . AutoAdminLogon 1
 
-      # Install Edge browser (for tests).
-      # From https://www.techmesto.com/reinstall-microsoft-edge-windows-10/
-      Get-AppXPackage -AllUsers -Name Microsoft.MicrosoftEdge | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register “$($_.InstallLocation)\AppXManifest.xml” -verbose}
-
-      # Originally chocolatey-tools installed into "C:\tools"
-      $Env:ChocolateyToolsLocation = "C:\Apps"
+      # Where should *chocolatey* tools install?
+      # Original: "C:\tools"
+      $Env:ChocolateyToolsLocation = "C:/Apps"
+      [Environment]::SetEnvironmentVariable("ChocolateyToolsLocation", "C:/Apps", "Machine")
 
       # Install chocolatey packages listed in vbguest's shared-folder.
-      choco install -y --no-progress --limitoutput C:/vagrant/chocopackages.config
+      choco install -y --no-progress --limitoutput  --cache=C:/vagrant/.chococache C:/vagrant/chocopackages.config
 
       # TotalCommander: show hidden files.
       Copy-Item  C:/vagrant/wincmd.ini $env:APPDATA/GHISLER/
-
- 
-      Restart-Computer -Force
     SHELL
   end
 end
