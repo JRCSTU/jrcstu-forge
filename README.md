@@ -9,7 +9,7 @@ with Vagrant images & conda packages, as conceived in https://app.clickup.com/t/
 
 
 
-## Install
+## VMs Installation
 
 - Do only once in your Host PC, with AdminRights/Root:
   - Install Virtualbox + GuestAdditions (+optional: extras)
@@ -20,24 +20,26 @@ with Vagrant images & conda packages, as conceived in https://app.clickup.com/t/
 
 ### Launch VM
 
-Choose which `Vagrantfile` you want, copy that to some folder
-and edit it, e.g. to set the CPUs/Memory, and then::
+Choose which `Vagrantfile` you want, copy that to some folder,
+optionally edit it (or use `~/.Vagrantfile`), e.g. to set the CPUs/Memory, 
+and then::
 
-      vagrant up
+    vagrant up
 
-This will take some considerable time to complete,
-roughly this (without downloading base-image)::
-
-    real    6m19.662s
-    user    0m10.361s
-    sys    0m8.611s
-
-for these steps:
+This will take some considerable time to complete
+the following these steps:
 
 - Download the base-image ~6GB,
 - prepare this base-image for quickly creating clones (children),
-- run Windows 1st-boot actions (need to click Network visibility),
+  (optional if `config.vm.provider(linked_clone: true)`)
+- run Windows 1st-boot actions,
 - provision the rest applications with chocolatey, conda, etc.
+
+... and, without downloading base-image, it typically takes::
+
+    real    11m8.834s
+    user    0m9.475s
+    sys     0m6.488s
 
 
 ### Re-provision VM
@@ -46,26 +48,32 @@ To apply any edits to `Vagrantfile`::
 
     vagrant reload --provision
 
-Tip:
-    It is recommended to save a snapshot of the *base* image before
-    provisioning it.  To do so, run these commands INSTEAD of
-    the very first `up` command (timed in my extra-speedy thinkpad)::
+### Snapshot VMs while developing
+It is recommended to save a snapshot of the *base* image before
+provisioning it.  To do so, run these commands INSTEAD of
+the very first `up` command (timed in my extra-speedy thinkpad)::
 
-    ```bash
-        $ time vagrant reload --provision
-        real    3m29.269s
-        user    0m9.296s
-        sys     0m7.912s
-        
-        $ vagrant snapshot save "Base"
+```bash
+    $ time vagrant destroy        # Erase(!) VM & start all over.
+    $ time vagrant up --provision
+    real    3m29.269s
+    user    0m9.296s
+    sys     0m7.912s
 
-        $ time vagrant provision
-        real    6m48.853s
-        user    0m3.083s
-        sys     0m0.824s
+    $ vagrant snapshot save "Base"
 
-        $ vagrant snapshot save "Provisioned"
-    ```
+    $ time vagrant provision       # or `vagrant up --provision`
+    real    6m48.853s
+    user    0m3.083s
+    sys     0m0.824s
+
+    $ vagrant snapshot save "Provisioned"
+```
+
+You may then edit `Vagrantfile` and provision it with::
+
+    vagrant snapshots restore Base --provision
+
 
 ## File contents
 
