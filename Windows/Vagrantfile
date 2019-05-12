@@ -51,7 +51,7 @@ Vagrant.configure("2") do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
-  
+
   # Stop the following boot-up warning:
   # 	Sorry, don't know how to check guest version of Virtualbox Guest Additions on this platform. Stopping installation.
   config.vbguest.auto_update = false
@@ -81,11 +81,10 @@ Vagrant.configure("2") do |config|
   # View the documentation for the provider you are using for more
   # information on available options.
 
-  # Enable provisioning with a shell script. Additional provisioners such as
-  # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
-  # documentation for more information about their specific syntax and use.
-  config.vm.provision "appinstall", type: "shell" do |s|
-    s.inline = <<-'SHELL'
+  # Install apps with chocolatey (see `chocopackages.config`), and 
+  # perform other OS configurations.
+  config.vm.provision "app_install", type: "shell" do |s|
+    s.inline = <<-SHELL
       Set-PSDebug -Trace 1
 
       # Suppress(?) Network-discovery question.
@@ -93,21 +92,21 @@ Vagrant.configure("2") do |config|
 
       # Do not combine apps in taskbar.
       # From https://www.lifewire.com/how-to-disable-taskbar-button-grouping-2626110
-      Set-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" TaskbarGlomLevel 2
+      Set-ItemProperty "HKCU:/Software/Microsoft/Windows/CurrentVersion/Explorer/Advanced" TaskbarGlomLevel 2
 
       # Auto-login on boot.
       # See https://support.microsoft.com/en-us/help/324737/how-to-turn-on-automatic-logon-in-windows
-      Set-Location "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
+      Set-Location "HKLM:/SOFTWARE/Microsoft/Windows NT/CurrentVersion/Winlogon"
       Set-ItemProperty . DefaultUserName vagrant
       Set-ItemProperty . DefaultPassword vagrant
       Set-ItemProperty . AutoAdminLogon 1
 
       # Don't startup OneDrive
       # From https://www.top-password.com/blog/stop-onedrive-from-automatically-starting-in-windows-10/
-      Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "OneDrive"
+      Remove-ItemProperty -Path "HKCU:/Software/Microsoft/Windows/CurrentVersion/Run" -Name "OneDrive"
 
       # Where should *chocolatey* tools install?
-      # Original: "C:\tools"
+      # Original: "C:/tools"
       $Env:ChocolateyToolsLocation = "C:/Apps"
       [Environment]::SetEnvironmentVariable("ChocolateyToolsLocation", "C:/Apps", "Machine")
 
@@ -118,9 +117,44 @@ Vagrant.configure("2") do |config|
       # TotalCommander: show hidden files.
       Copy-Item  C:/vagrant/wincmd.ini $env:APPDATA/GHISLER/
       # TotalCommander: installs both 64bit & 32bit - remove the later
-      Remove-Item  "c:\Users\Public\Desktop\Total Commander.lnk"
+      Remove-Item  "c:/Users/Public/Desktop/Total Commander.lnk"
     SHELL
 
     s.reboot = true
+  end
+
+  # Install utilities in base conda.
+  config.vm.provision "conda_base", type: "shell" do |s|
+    s.inline = <<-SHELL
+      conda install -qy --name base  pip conda-build anaconda-client
+
+      # An amazing cross-platform chimairic shell (Bash + Python),
+      # see this talk: https://xon.sh/talks_and_articles.html#talks
+      conda install -qy --name base --override-channels -c conda-forge  xonsh xonda
+      Copy-Item  C:/vagrant/.xonshrc (Resolve-Path ~).Path
+      # A decent Python interpreter.
+      conda run  pip install --progress-bar=off  ptpython
+    SHELL
+  end
+
+  # Install most of CO2MPAS exe & dev dependencies, and some utils,
+  # prefering conda for those that exist.
+  config.vm.provision "conda_co2", type: "shell" do |s|
+    s.inline = <<-SHELL
+      conda create -qy --name co2 \
+          pip \
+          numpy numpy-base py-xgboost pyyaml regex scikit-learn tqdm scipy pandas \
+          xlrd dill \
+          sphinx docutils Pygments \
+          flask lxml beautifulsoup4 jinja2 graphviz \
+          click mako
+
+      # Use defulat channel not to update `certifi` package from `conda-forge`.
+      conda install -qy --name co2 -c defaults -c conda-forge  asteval sphinxcontrib-restbuilder
+
+      conda install -qy --name co2 -c conda-forge  xonsh xonda
+
+      conda run --name co2  pip install --progress-bar=off  formulas gitchangelog pandalone schedula ptpython
+    SHELL
   end
 end
