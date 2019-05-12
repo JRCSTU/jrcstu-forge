@@ -1,0 +1,10 @@
+# Override stuff for your VM instance
+# e.g. http://docs.drupalvm.com/en/2.5.1/other/local-vagrantfile/
+
+config.vm.provider :virtualbox do |v|
+  # Enable GUI mode instead of running a headless machine.
+  #v.gui = true
+  #vb.memory = "2048"
+  #vb.cpus = "2"
+end
+
