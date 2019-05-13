@@ -128,8 +128,9 @@ Vagrant.configure("2") do |config|
       Remove-ItemProperty -Path "HKCU:/Software/Microsoft/Windows/CurrentVersion/Run" -Name "OneDrive"
 
       # Docker needs these Virtualization featurea enabled.
-      Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
-      Enable-WindowsOptionalFeature -Online -FeatureName Containers -All
+      # Note: without `-NoRestart`, it blocks indefinetely@!
+      Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -NoRestart
+      Enable-WindowsOptionalFeature -Online -FeatureName Containers -All -NoRestart
 
       # Disable Cortana
       # (from https://gallery.technet.microsoft.com/scriptcenter/How-to-disable-Cortana-on-b44924a4)
@@ -141,8 +142,6 @@ Vagrant.configure("2") do |config|
       #Restart Explorer to change it immediately
       Stop-Process -name explorer
     SHELL
-
-    s.reboot = true
   end
 
 
@@ -182,4 +181,7 @@ Vagrant.configure("2") do |config|
       conda run --name co2  pip install --progress-bar=off  formulas gitchangelog pandalone schedula ptpython
     SHELL
   end
+
+  # Docker needs this (at least) & finalize base-box for all registry-keys to exist.
+  config.vm.provision "last_reboot", type: :reload
 end

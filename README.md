@@ -46,9 +46,9 @@ these steps:
 
 ... and, without downloading base-image, it typically takes::
 
-    real    11m8.834s
-    user    0m9.475s
-    sys     0m6.488s
+    real    20m2.404s
+    user    0m18.010s
+    sys     0m10.250s
 
 
 ### Re-provision VM
@@ -86,7 +86,7 @@ the very first `up` command (timed in my extra-speedy thinkpad)::
     sys     0m0.757s
     $ vagrant snapshot save conda_base
 
-    $ time vagrant provision --provision-with=conda_co2         # Or run all with `vagrant up --provision`.
+    $ time vagrant provision --provision-with=conda_co2,last_reboot   # Or run all with `vagrant up --provision`.
     real    4m27.198s
     user    0m2.589s
     sys     0m0.735s
