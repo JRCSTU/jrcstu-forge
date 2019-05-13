@@ -1,12 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby sts=2 ts=2 sw=2 :
 
-# PLUGINS needed:
-#   vagrant install plugin \
-#       winrm \
-#       winrm-fs \
-#       winrm-elevated \
-#       vagrant-vbguest
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
@@ -16,6 +10,9 @@ Vagrant.configure("2") do |config|
   # The most common configuration options are documented and commented below.
   # For a complete reference, please see the online documentation at
   # https://docs.vagrantup.com.
+
+  # PLUGINS needed:
+  config.vagrant.plugins = %w(winrm winrm-fs winrm-elevated vagrant-vbguest vagrant-reload)
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
@@ -63,7 +60,7 @@ Vagrant.configure("2") do |config|
   config.vm.provider "virtualbox" do |vb|
     vb.name = "co2_win10_dev"
     # Display the VirtualBox GUI when booting the machine
-    #vb.gui = true
+    vb.gui = true
 
     vb.memory = "2048"
     vb.cpus = "2"
@@ -81,9 +78,34 @@ Vagrant.configure("2") do |config|
   # View the documentation for the provider you are using for more
   # information on available options.
 
-  # Install apps with chocolatey (see `chocopackages.config`), and 
+  # Install apps with chocolatey (see `chocopackages.config`), and
   # perform other OS configurations.
-  config.vm.provision "app_install", type: "shell" do |s|
+  config.vm.provision "app_install", type: :shell do |s|
+    s.inline = <<-SHELL
+      Set-PSDebug -Trace 1
+
+    # # Where should *chocolatey* tools install?
+    # # Original: "C:/tools"
+    # $Env:ChocolateyToolsLocation = "C:/Apps"
+    # [Environment]::SetEnvironmentVariable("ChocolateyToolsLocation", "C:/Apps", "Machine")
+
+      # Install chocolatey packages listed in vbguest's shared-folder.
+      choco install -y --no-progress  --limitoutput C:/vagrant/chocopackages.config
+
+      # TotalCommander: show hidden files.
+      Copy-Item  C:/vagrant/wincmd.ini $env:APPDATA/GHISLER/
+      # TotalCommander: installs both 64bit & 32bit - remove the later
+      Remove-Item  "c:/Users/Public/Desktop/Total Commander.lnk"
+    SHELL
+  end
+
+
+  # Docker needs this (at least) & finalize base-box for all registry-keys to exist.
+  config.vm.provision "1st_reboot", type: :reload
+
+
+  # Various registry edits.
+  config.vm.provision "regedits", type: :shell do |s|
     s.inline = <<-SHELL
       Set-PSDebug -Trace 1
 
@@ -96,36 +118,39 @@ Vagrant.configure("2") do |config|
 
       # Auto-login on boot.
       # See https://support.microsoft.com/en-us/help/324737/how-to-turn-on-automatic-logon-in-windows
-      Set-Location "HKLM:/SOFTWARE/Microsoft/Windows NT/CurrentVersion/Winlogon"
-      Set-ItemProperty . DefaultUserName vagrant
-      Set-ItemProperty . DefaultPassword vagrant
-      Set-ItemProperty . AutoAdminLogon 1
+      $regpath = "HKLM:/SOFTWARE/Microsoft/Windows NT/CurrentVersion/Winlogon"
+      Set-ItemProperty $regpath DefaultUserName vagrant
+      Set-ItemProperty $regpath DefaultPassword vagrant
+      Set-ItemProperty $regpath AutoAdminLogon 1
 
       # Don't startup OneDrive
       # From https://www.top-password.com/blog/stop-onedrive-from-automatically-starting-in-windows-10/
       Remove-ItemProperty -Path "HKCU:/Software/Microsoft/Windows/CurrentVersion/Run" -Name "OneDrive"
 
-      # Where should *chocolatey* tools install?
-      # Original: "C:/tools"
-      $Env:ChocolateyToolsLocation = "C:/Apps"
-      [Environment]::SetEnvironmentVariable("ChocolateyToolsLocation", "C:/Apps", "Machine")
+      # Docker needs these Virtualization featurea enabled.
+      Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
+      Enable-WindowsOptionalFeature -Online -FeatureName Containers -All
 
-      # Install chocolatey packages listed in vbguest's shared-folder.
-      #choco install -y --no-progress --limitoutput  --cache=C:/vagrant/.chococache C:/vagrant/chocopackages.config
-      choco install -y --no-progress  --limitoutput C:/vagrant/chocopackages.config
-
-      # TotalCommander: show hidden files.
-      Copy-Item  C:/vagrant/wincmd.ini $env:APPDATA/GHISLER/
-      # TotalCommander: installs both 64bit & 32bit - remove the later
-      Remove-Item  "c:/Users/Public/Desktop/Total Commander.lnk"
+      # Disable Cortana
+      # (from https://gallery.technet.microsoft.com/scriptcenter/How-to-disable-Cortana-on-b44924a4)
+      $regpath = "HKLM:/SOFTWARE/Policies/Microsoft/Windows/Windows Search"
+      IF(!(Test-Path -Path $regpath)) {
+          New-Item -Path "HKLM:/SOFTWARE/Policies/Microsoft/Windows" -Name "Windows Search"
+      }
+      Set-ItemProperty -Path $regpath -Name "AllowCortana" -Value 1
+      #Restart Explorer to change it immediately
+      Stop-Process -name explorer
     SHELL
 
     s.reboot = true
   end
 
+
   # Install utilities in base conda.
-  config.vm.provision "conda_base", type: "shell" do |s|
+  config.vm.provision "conda_base", type: :shell do |s|
     s.inline = <<-SHELL
+      Set-PSDebug -Trace 1
+
       conda install -qy --name base  pip conda-build anaconda-client
 
       # An amazing cross-platform chimairic shell (Bash + Python),
@@ -139,20 +164,20 @@ Vagrant.configure("2") do |config|
 
   # Install most of CO2MPAS exe & dev dependencies, and some utils,
   # prefering conda for those that exist.
-  config.vm.provision "conda_co2", type: "shell" do |s|
+  config.vm.provision "conda_co2", type: :shell do |s|
     s.inline = <<-SHELL
-      conda create -qy --name co2 \
+      Set-PSDebug -Trace 1
+
+    # Use defulat channel not to update `certifi` package from `conda-forge`.
+      conda create -qy --name co2 -c defaults -c conda-forge \
           pip \
           numpy numpy-base py-xgboost pyyaml regex scikit-learn tqdm scipy pandas \
           xlrd dill \
           sphinx docutils Pygments \
           flask lxml beautifulsoup4 jinja2 graphviz \
-          click mako
-
-      # Use defulat channel not to update `certifi` package from `conda-forge`.
-      conda install -qy --name co2 -c defaults -c conda-forge  asteval sphinxcontrib-restbuilder
-
-      conda install -qy --name co2 -c conda-forge  xonsh xonda
+          click mako \
+          asteval sphinxcontrib-restbuilder pyinstaller \
+          xonsh xonda
 
       conda run --name co2  pip install --progress-bar=off  formulas gitchangelog pandalone schedula ptpython
     SHELL

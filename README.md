@@ -78,7 +78,7 @@ the very first `up` command (timed in my extra-speedy thinkpad)::
     $ vagrant snapshot save "app_install"
 
 
-    $ time vagrant provision --provision-with=conda_base
+    $ time vagrant provision --provision-with=1st_reboot,regedit,conda_base
     real    1m11.795s
     user    0m2.244s
     sys     0m0.757s
@@ -91,6 +91,6 @@ the very first `up` command (timed in my extra-speedy thinkpad)::
     $ vagrant snapshot save conda_co2
 ```
 
-You may then edit `Vagrantfile` and re-provision it with::
+You may then edit `Vagrantfile` and re-provision it with one command::
 
     vagrant snapshots restore base --provision
