@@ -2,7 +2,7 @@
 CO2MPAS development environment
 ===============================
 
-> A replacement for **co2mpas-ALLINONE**...
+> It's like a replacement for **co2mpas-ALLINONE**... but for Devs only!
 
 Ensure a reproducible cross-platform development and deployment infrastructure-as-code,
 with Vagrant images & conda packages, as conceived in https://app.clickup.com/t/qgdb2
@@ -10,31 +10,33 @@ with Vagrant images & conda packages, as conceived in https://app.clickup.com/t/
 
 ## File contents
 
-    Windows/    Vagrant CO2MPAS development image with:
-                + miniconda3, notepadplusplus, totalcommander, cmder, nodejs, git, docker
-                + chromium, firefox, edge (selenium-drivers)
-                + IDEs: vscode, pycharm
+    Vagrant/Win10/      Contains the `Vagrantfile`+scrips for the CO2MPAS development,
+                        configured with:
+                            + miniconda3, notepadplusplus, totalcommander, cmder, nodejs, git, docker
+                            + chromium, firefox, edge (selenium-drivers)
+                            + IDEs: vscode, pycharm
 
 
-## Virtualbox & Vagrantr Installation
+## Virtualbox & Vagrant Installation
 
 - Do only once in your Host PC, with AdminRights/Root:
   - Install Virtualbox + GuestAdditions (+optional: extras)
-  - Install Vagrant, and then with normal priviledges install these plugins:
+  - Install Vagrant
+    The 2st time you launch the win10 image, it will install these plugins:
 
-        vagrant install plugin winrm winrm-fs winrm-elevated vagrant-vbguest
+        winrm winrm-fs winrm-elevated vagrant-vbguest vagrant-reload
 
 
 ### Build & Launch VM
 
-Choose which `Vagrantfile` you want, copy that to some folder,
-optionally edit it (or use `~/.Vagrantfile`), e.g. to set the CPUs/Memory, 
+Copy the `Vagrantfile` to some folder, optionally edit it 
+(or use `~/.Vagrantfile`), e.g. to set the CPUs/Memory,
 and then::
 
     vagrant up
 
 This will take some considerable time to complete
-the following these steps:
+these steps:
 
 - Download the base-image ~6GB,
 - prepare this base-image for quickly creating clones (children),
@@ -75,14 +77,14 @@ the very first `up` command (timed in my extra-speedy thinkpad)::
     real    6m48.853s
     user    0m3.083s
     sys     0m0.824s
-    $ vagrant snapshot save "app_install"
+    $ vagrant snapshot save "app_install"                       # You may skip this or any snapshot.
 
 
     $ time vagrant provision --provision-with=1st_reboot,regedit,conda_base
     real    1m11.795s
     user    0m2.244s
     sys     0m0.757s
-    $ vagrant snapshot save conda_base                          # You may skip any snapshot.
+    $ vagrant snapshot save conda_base
 
     $ time vagrant provision --provision-with=conda_co2         # Or run all with `vagrant up --provision`.
     real    4m27.198s
