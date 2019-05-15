@@ -1,0 +1,73 @@
+{% set name = "pandalone" %}
+{% set version = "0.2.4.post1" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: https://github.com/{{ name }}/{{ name }}/archive/v{{ version }}.tar.gz
+  sha256: f455188cf6e69a42c3d548d621d6e9ee209999924b9b31b79378261e6fc6b8da
+
+build:
+  number: 0
+  noarch: python
+  entry_points:
+    - pndl = pandalone.__main__:main
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv"
+
+requirements:
+  build:
+    - setuptools
+  host:
+    - asteval >=0.9.7
+    - future >=0.15.0
+    - jsonschema >=2.5
+    - numpy
+    - openpyxl >=2.2
+    - pip
+    - python >=3.3
+    - setuptools
+    - sphinx_rtd_theme
+    - toolz
+  run:
+    - asteval >=0.9.7
+    - future >=0.15.0
+    - jsonschema >=2.5
+    - numpy
+    - openpyxl >=2.2
+    - python
+    - setuptools
+    - sphinx_rtd_theme
+    - toolz
+
+test:
+  imports:
+    - pandalone
+    - pandalone.xleash
+    - pandalone.xleash.io
+  commands:
+    - nosetests
+  # source_files:
+  #   - tests/*
+  requires:
+    - coverage
+    - coveralls
+    - ddt
+    - nose
+    - pandas
+    - xlrd
+
+about:
+  home: https://github.com/{{ name }}/{{ name }}
+  license: European Union Public Licence 1.1 (EUPL 1.1)
+  license_family: OTHER
+  license_file: LICENSE.txt
+  summary: Process data-trees with relocatable-paths in Python
+
+  doc_url:  https://{{ name }}.readthedocs.org/
+  dev_url:  https://github.com/{{ name }}/{{ name }}
+
+extra:
+  recipe-maintainers:
+    - ankostis
