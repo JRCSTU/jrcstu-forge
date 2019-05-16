@@ -1,0 +1,57 @@
+{% set name = "wltp" %}
+{% set version = "0.1.0a3" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: e8f7815fc2c317c02cfed2c61efe86f2a909b5f42c1a197acd41e6b48ea1d234
+
+build:
+  noarch: python
+  number: 0
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
+  entry_points:
+    - wltp = wltp.__main__:main
+
+requirements:
+  host:
+    - jsonschema >=2.5
+    - numpy
+    - pandas
+    - pip
+    - python
+    - setuptools-git
+    - six
+  run:
+    - jsonschema >=2.5
+    - numpy
+    - pandas
+    - python
+    - six
+
+test:
+  imports:
+    - wltp
+    - wltp.cycles
+    - wltp.excel
+  commands:
+    - wltp --help
+  requires:
+    - coverage
+    - nose
+
+about:
+  home: https://github.com/JRCSTU/wltp
+  license: European Union Public Licence 1.1 (EUPL 1.1)
+  license_family: OTHER
+  license_file: 
+  summary: generate WLTC gear-shifts based on vehicle characteristics
+  doc_url: https://wltp.readthedocs.io/
+  dev_url: https://github.com/JRCSTU/wltp
+
+extra:
+  recipe-maintainers:
+    - ankostis
