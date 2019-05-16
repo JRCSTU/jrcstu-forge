@@ -1,0 +1,41 @@
+{% set name = "logutils" %}
+{% set version = "0.3.5" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: bc058a25d5c209461f134e1f03cab637d66a7a5ccc12e593db56fbb279899a82
+
+build:
+  number: 0
+  noarch: python
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
+
+requirements:
+  host:
+    - pip
+    - python
+  run:
+    - python
+
+test:
+  imports:
+    - logutils
+  commands:
+    - python -m unittest
+
+about:
+  home: http://code.google.com/p/logutils/
+  license: BSD
+  license_family: BSD
+  license_file: 
+  summary: A set of handlers, some backported from recent versions of Python standard library's logging package
+  doc_url: https://logutils.readthedocs.io/
+  dev_url: https://bitbucket.org/vinay.sajip/logutils/
+
+extra:
+  recipe-maintainers:
+    - ankostis
