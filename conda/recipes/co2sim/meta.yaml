@@ -1,0 +1,121 @@
+{% set name = "co2sim" %}
+{% set version = "3.0.0" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 291f19f7776d98597b26028543a2b88fdc6bd79eea241813cc68cc944b2e9e19
+
+build:
+  number: 0
+  noarch: python
+  skip: True                  # [py<35]
+  entry_points:
+    - co2mpas = co2mpas.__main__:main
+    - datasync = co2mpas.datasync:main
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
+
+requirements:
+  host:
+    - colorama
+    - formulas >=0.0.10
+    - lmfit >=0.9.7
+    - {{ pin_compatible('numpy') }}
+    - pandalone >=0.2.4
+    - pandas >=0.21.0
+    - pip
+    - polyversion >=0.2.2a0
+    - python >=3.5
+    - regex
+    - schedula >=0.2.3
+    - schema
+    - scikit-learn
+    - setuptools
+    - setuptools-git >=0.3
+    - scipy
+    - wltp
+    - xgboost
+    - boltons
+    - contextvars             # [py<37] for co2mpare, backported for <PY
+    - cryptography
+    - dill !=0.2.7
+    - docopt
+    - openpyxl >=2.4.0
+    - pandalone >=0.2.0
+    - xlrd
+    - pip
+    - PyYAML >=3.12
+    - toolz
+    - tqdm
+    - xlsxwriter
+  run:
+    - colorama
+    - docopt
+    - formulas >=0.0.10
+    - lmfit >=0.9.7
+    - {{ pin_compatible('numpy') }}
+    - pandalone >=0.2.4
+    - pandas >=0.21.0
+    - polyversion >=0.2.2a0
+    - python >=3.5
+    - regex
+    - schedula >=0.2.3
+    - schema
+    - scikit-learn
+    - scipy
+    - wltp
+    - xgboost
+    - boltons
+    - contextvars             # [py<37] for co2mpare, backported for <PY
+    - cryptography
+    - dill !=0.2.7
+    - docopt
+    - openpyxl >=2.4.0
+    - pandalone >=0.2.0
+    - xlrd
+    - pip
+    - PyYAML >=3.12
+    - toolz
+    - tqdm
+    - xlsxwriter
+
+test:
+  imports:
+    - co2mpas
+    - co2mpas._vendor
+    - co2mpas.co2mparable
+    - co2mpas.io
+    - co2mpas.model
+    - co2mpas.model.physical
+    - co2mpas.model.physical.clutch_tc
+    - co2mpas.model.physical.cycle
+    - co2mpas.model.physical.electrics
+    - co2mpas.model.physical.engine
+    - co2mpas.model.physical.gear_box
+    - co2mpas.model.selector
+    - co2mpas.utils
+  commands:
+    - co2mpas --help
+    - datasync --help
+  requires:
+    - ddt
+    - flake8
+    - flake8-builtins
+    - flake8-mutable
+    - pytest
+    - pytest-runner
+
+about:
+  home: https://co2mpas.io/
+  license: European Union Public Licence 1.1 (EUPL 1.1)
+  license_family: OTHER
+  summary: The Type-Approving vehicle simulator predicting NEDC CO2 emissions from WLTP
+  doc_url: https://co2mpas.io/
+  dev_url: https://github.com/JRCSTU/CO2MPAS-TA
+
+extra:
+  recipe-maintainers:
+    - ankostis
