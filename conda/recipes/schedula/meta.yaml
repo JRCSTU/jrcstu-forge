@@ -73,6 +73,7 @@ about:
   home: https://github.com/vinci1it2000/schedula
   license: EUPL-1.1
   license_family: OTHER
+  license_file: LICENSE.txt
   summary: 'An intelligent function scheduler, which selects and executes functions.'
   doc_url: https://schedula.readthedocs.io
 

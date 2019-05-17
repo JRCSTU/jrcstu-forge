@@ -112,6 +112,7 @@ about:
   home: https://co2mpas.io/
   license: European Union Public Licence 1.1 (EUPL 1.1)
   license_family: OTHER
+  license_file: LICENSE.txt
   summary: The Type-Approving vehicle simulator predicting NEDC CO2 emissions from WLTP
   doc_url: https://co2mpas.io/
   dev_url: https://github.com/JRCSTU/CO2MPAS-TA

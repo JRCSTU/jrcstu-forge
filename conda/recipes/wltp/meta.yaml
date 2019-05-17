@@ -47,8 +47,8 @@ about:
   home: https://github.com/JRCSTU/wltp
   license: European Union Public Licence 1.1 (EUPL 1.1)
   license_family: OTHER
-  license_file: 
-  summary: generate WLTC gear-shifts based on vehicle characteristics
+  license_file: LICENSE.txt
+summary: generate WLTC gear-shifts based on vehicle characteristics
   doc_url: https://wltp.readthedocs.io/
   dev_url: https://github.com/JRCSTU/wltp
 

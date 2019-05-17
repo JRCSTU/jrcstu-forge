@@ -85,6 +85,7 @@ about:
   home: https://github.com/vinci1it2000/formulas
   license: EUPL-1.1
   license_family: OTHER
+  license_file: LICENSE.txt
   summary: 'Parse and compile Excel formulas and workbooks in python code.'
   doc_url: https://formulas.readthedocs.io
 
