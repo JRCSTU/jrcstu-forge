@@ -14,6 +14,7 @@ source:
 build:
   noarch: python
   number: 0
+  skip: True                  # [py<35]
   script: "{{ PYTHON }} -m pip install . --no-deps -vv"
 
 requirements:
@@ -25,11 +26,11 @@ requirements:
     - jinja2
     - lxml
     - multiprocess
-    - networkx >=2.0.0
+    - networkx  >=2.0.0
     - nose
     - pip
     - pygments
-    - python >=3
+    - python    >=3.5
     - python-graphviz
     - regex
     - requests
@@ -38,8 +39,8 @@ requirements:
     - sphinxcontrib-restbuilder
   run:
     - dill
-    - networkx >=2.0.0
-    - python
+    - networkx  >=2.0.0
+    - python    >=3.5
 
 test:
   source_files:
@@ -72,7 +73,6 @@ about:
   home: https://github.com/vinci1it2000/schedula
   license: EUPL-1.1
   license_family: OTHER
-  license_file: LICENSE.txt
   summary: 'An intelligent function scheduler, which selects and executes functions.'
   doc_url: https://schedula.readthedocs.io
 
