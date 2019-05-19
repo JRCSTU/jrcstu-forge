@@ -1,11 +1,32 @@
 <!-- vi: set sts=4 ts=4 sw=4 : -->
-CO2MPAS development environment
-===============================
+# CO2MPAS development environment
 
 > It's like a replacement for **co2mpas-ALLINONE**... but for Devs only!
 
 Ensure a reproducible cross-platform development and deployment infrastructure-as-code,
-with Vagrant images & conda packages, as conceived in https://app.clickup.com/t/qgdb2
+with Vagrant images & conda packages, as...
+
+- conceived in https://app.clickup.com/t/qgdb2
+- explained (3rdp slides):  http://chdoig.github.io/pydata2015-dallas-conda/
+- and designed: https://atlas.mindmup.com/ankostis/crossdevpython/
+
+
+## Cross-platform development
+
+- The study & development for [developing and distributing a cross-platform co2mpas](https://atlas.mindmup.com/ankostis/crossdevpython/)
+  included the folowing activities:
+  - requirements analysis,
+  - packaging methods for python & native programs (conslusion: keep existing `setup.py` but move to conda)
+  - VMs for development & scriting solutions for their configurations
+  - An additional EXE distribution method based on conda
+- A Vagrant-script for a Virtualbox VM for Developing CO2MPAS on Windows10,
+  which can be used when developing from MacOS or Linux machines
+  (uploaded atm in: https://app.vagrantup.com/ankostis/boxes/co2_win10_dev).
+- Cross-platform conda packages for all co2mpas dependencies that didn't have this
+  (uploaded atm in: https://anaconda.org/ankostis )
+- Redistributable installable co2mpas (the "EXE") for both Linux & Windows
+  based on conda's `constructor`
+- A new Git repo (this one) for building all of the above.
 
 
 ## File contents
@@ -15,11 +36,16 @@ with Vagrant images & conda packages, as conceived in https://app.clickup.com/t/
                             + miniconda3, notepadplusplus, totalcommander, cmder, nodejs, git, docker
                             + chromium, firefox, edge (selenium-drivers)
                             + IDEs: vscode, pycharm
+    conda/
+        +--recipes/     folders containing `meta.yaml` files etc that build co2mpas 
+        |               (or its dependent libs) as pure-conda packages, 
+        |               needed for *constructor* installer.
+        +--constructs/  
 
 
-## Virtualbox & Vagrant Installation
+## 1. Virtualbox & Vagrant Installation
 
-- Do only once in your Host PC, with AdminRights/Root:
+- Do only once in your Host PC (Linux, MacOS, Windows), with AdminRights/Root:
   - Install Virtualbox + GuestAdditions (+optional: extras)
   - Install Vagrant
     The 2st time you launch the win10 image, it will install these plugins:
@@ -29,7 +55,7 @@ with Vagrant images & conda packages, as conceived in https://app.clickup.com/t/
 
 ### Build & Launch VM
 
-Copy the `Vagrantfile` to some folder, optionally edit it 
+Copy the `Vagrantfile` to some folder, optionally edit it
 (or use `~/.Vagrantfile`), e.g. to set the CPUs/Memory,
 and then::
 
@@ -96,3 +122,6 @@ the very first `up` command (timed in my extra-speedy thinkpad)::
 You may then edit `Vagrantfile` and re-provision it with one command::
 
     vagrant snapshots restore base --provision
+
+
+## 2. Conda packages
