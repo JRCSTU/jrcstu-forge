@@ -11,7 +11,7 @@ source:
 
 build:
   number: 0
-  noarch: python
+  #noarch: python
   skip: True                  # [py<35]
   entry_points:
     - co2mpas = co2mpas.__main__:main

@@ -10,7 +10,7 @@ source:
   sha256: e8f7815fc2c317c02cfed2c61efe86f2a909b5f42c1a197acd41e6b48ea1d234
 
 build:
-  noarch: python
+  #noarch: python
   number: 0
   script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
   entry_points:
@@ -48,7 +48,7 @@ about:
   license: European Union Public Licence 1.1 (EUPL 1.1)
   license_family: OTHER
   license_file: LICENSE.txt
-summary: generate WLTC gear-shifts based on vehicle characteristics
+  summary: "generate WLTC gear-shifts based on vehicle characteristics"
   doc_url: https://wltp.readthedocs.io/
   dev_url: https://github.com/JRCSTU/wltp
 
