@@ -1,0 +1,23 @@
+## Based on https://medium.com/@Amet13/building-a-cross-platform-python-installer-using-conda-constructor-f91b70d393
+
+name: co2sim
+version: 3.0.0
+
+channels:
+  - https://conda.anaconda.org/bioconda
+  - https://conda.anaconda.org/conda-forge
+  - http://repo.anaconda.com/pkgs/msys2
+  - http://repo.anaconda.com/pkgs/free/
+  - http://repo.anaconda.com/pkgs/main/
+  - https://conda.anaconda.org/ankostis
+specs:
+  - python 3.7*
+  - conda
+  - menuinst          [win]
+  - console_shortcut
+  - graphviz
+  - co2sim 3.0.0
+
+license_file: ../../../LICENSE.txt
+welcome_image: CO2MPAS_banner.png   [win]
+icon_image: CO2MPAS_icon.png        [win]
