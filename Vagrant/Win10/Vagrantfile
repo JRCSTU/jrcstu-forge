@@ -75,6 +75,17 @@ Vagrant.configure("2") do |config|
     #vb.linked_clone = true
   end
 
+  config.vm.provider "hyperv" do |prv|
+    prv.vmname = "co2_win10_dev"
+    # Display the VirtualBox GUI when booting the machine
+
+    prv.memory = "2048"
+    prv.cpus = "2"
+
+    # See https://www.vagrantup.com/docs/virtualbox/configuration.html#linked-clone
+    #vb.linked_clone = true
+  end
+
   # View the documentation for the provider you are using for more
   # information on available options.
 
@@ -91,6 +102,20 @@ Vagrant.configure("2") do |config|
 
       # Install chocolatey packages listed in vbguest's shared-folder.
       choco install -y --no-progress  --limitoutput C:/vagrant/chocopackages.config
+
+      # choco(docker-toolbox): delegate `docker`(client) on Guest --> `dockerd` on the Host.
+      # Rational: 
+      #   Cannot install the newer docker-for-windows (choco(docker-desktop)) in a VirtualBox VM
+      #   bc it needs Hyper-V (a Type-1 hypervisor), which cannot yet nest inside a VirtualBox, 
+      #   as explained in: https://medium.com/@peorth/using-docker-with-virtualbox-and-windows-10-b351e7a34adc
+      # TIP: 
+      #   To enable `dockerd` listening 2375 port on Host, see:
+      #   https://gist.github.com/styblope/dc55e0ad2a9848f2cc3307d4819d819f
+      # HINT:
+      #   10.0.2.2 is NAT's reserved ip-address for accessing ports of the gateway
+      #   port 2375 is the default for plain dockerd
+      #   port 2376 is the default for TLS dockerd
+      set-item ENV:DOCKER_HOST "10.0.2.2:2375"
 
       # TotalCommander: show hidden files.
       Copy-Item  C:/vagrant/wincmd.ini $env:APPDATA/GHISLER/
@@ -126,11 +151,6 @@ Vagrant.configure("2") do |config|
       # Don't startup OneDrive
       # From https://www.top-password.com/blog/stop-onedrive-from-automatically-starting-in-windows-10/
       Remove-ItemProperty -Path "HKCU:/Software/Microsoft/Windows/CurrentVersion/Run" -Name "OneDrive"
-
-      # Docker needs these Virtualization featurea enabled.
-      # Note: without `-NoRestart`, it blocks indefinetely@!
-      Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -NoRestart
-      Enable-WindowsOptionalFeature -Online -FeatureName Containers -All -NoRestart
 
       # Disable Cortana
       # (from https://gallery.technet.microsoft.com/scriptcenter/How-to-disable-Cortana-on-b44924a4)
