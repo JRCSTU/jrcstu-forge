@@ -17,6 +17,9 @@ specs:
   - console_shortcut
   - graphviz
   - co2sim 3.0.0
+post_install:
+  post_install.sh     [not win]
+  post_install.bat    [win]
 
 license_file: ../../../LICENSE.txt
 welcome_image: CO2MPAS_banner.png   [win]
