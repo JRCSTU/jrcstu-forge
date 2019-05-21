@@ -8,6 +8,9 @@ package:
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 291f19f7776d98597b26028543a2b88fdc6bd79eea241813cc68cc944b2e9e19
+  patches:
+    # `xgboost` exists only conda-forge but not for Windows!
+    - 0001-xgboost-canonical.patch
 
 build:
   number: 0
@@ -37,7 +40,7 @@ requirements:
     - setuptools-git >=0.3
     - scipy
     - wltp
-    - xgboost
+    - py-xgboost
     - boltons
     - contextvars             # [py<37] for co2mpare, backported for <PY
     - cryptography
@@ -61,13 +64,13 @@ requirements:
     - pandas >=0.21.0
     - polyversion >=0.2.2a0
     - python >=3.5
+    - py-xgboost
     - regex
     - schedula >=0.2.3
     - schema
     - scikit-learn
     - scipy
     - wltp
-    - xgboost
     - boltons
     - contextvars             # [py<37] for co2mpare, backported for <PY
     - cryptography

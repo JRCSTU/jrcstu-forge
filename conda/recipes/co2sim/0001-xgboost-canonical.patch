@@ -1,0 +1,11 @@
+--- setup.py
++++ setup.py
+@@ -194,7 +194,7 @@ setup(
+         'scikit-learn',
+         'scipy',
+         'wltp',
+-        'xgboost',                  # Pure-python boost would be also ok.
++        'py-xgboost',               # Pure-python boost would be also ok.
+     ],
+     extras_require={
+         'io': [
