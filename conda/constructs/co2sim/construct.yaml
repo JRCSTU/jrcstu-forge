@@ -2,12 +2,13 @@
 
 name: co2sim
 version: 3.0.0
+company: JRC-STU
 
 channels:
   - https://conda.anaconda.org/bioconda
   - https://conda.anaconda.org/conda-forge
-  #- http://repo.anaconda.com/pkgs/msys2
-  #- http://repo.anaconda.com/pkgs/free/
+  - http://repo.anaconda.com/pkgs/msys2   # [win]  For compilers etc
+  - http://repo.anaconda.com/pkgs/free/   # [win]
   - http://repo.anaconda.com/pkgs/main/
   - https://conda.anaconda.org/ankostis
 specs:
@@ -17,10 +18,37 @@ specs:
   - console_shortcut  [win]
   - graphviz
   - co2sim 3.0.0
+  # co2sim[io] dependencies
+  - boltons
+  #- contextvars        [py<37]       # for co2mpare, backported for <PY37
+  - cryptography
+  - dill !=0.2.7
+  - docopt
+  - openpyxl >=2.4.0
+  - pandalone[xlrd]>=0.2.0    # for datasync pascha-fixes and openpyxl version
+  - pip
+  - PyYAML >=3.12
+  - toolz
+  - py-xgboost
+  - tqdm
+  - xlsxwriter
+  # co2sim[plot] dependencies
+  - matplotlib
+  - python-graphviz           # this one https://graphviz.readthedocs.io/
+  # schedula & formulas [plot] dependencies
+  - sphinx
+  - flask
+  - Pygments
+  - lxml
+  - beautifulsoup4
+  - jinja2
+  - docutils
+  - multiprocess
+
 post_install:
   post_install.sh     [not win]
   post_install.bat    [win]
 
 license_file: ../../../LICENSE.txt
 welcome_image: CO2MPAS_banner.png   [win]
-icon_image: CO2MPAS_icon.png        [win]
+icon_image: CO2MPAS_logo.png        [win]
