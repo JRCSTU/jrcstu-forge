@@ -1,0 +1,94 @@
+{% set name = "co2dice" %}
+{% set version = "3.0.0" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 19ec15afd41c8377f348e23d4e2ee61f7ebf29f9f4d1d63f632f75d687396c98
+
+build:
+  number: 0
+  noarch: python
+  entry_points:
+    - co2dice = co2dice.__main__:main
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
+
+requirements:
+  host:
+    - boltons
+    - co2sim[io]
+    - gitpython >=2.1.8
+    - ipython_genutils
+    - numpy
+    - pandalone[xlrd] >=0.2.0
+    - pandas
+    - parsedatetime
+    - pip
+    - polyversion >=0.2.2a0
+    - pysocks >=1.6.7
+    - python
+    - python-gnupg
+    - pyyaml >=3.12
+    - schedula
+    - schema
+    - toolz
+    - transitions >=0.5.0
+    - unidecode
+    - validate_email
+  run:
+    - boltons
+    - co2sim
+    - colorama
+    - gitpython >=2.1.8
+    - ipython_genutils
+    - numpy
+    - pandalone >=0.2.0
+    - xlrd
+    - pandas
+    - parsedatetime
+    - polyversion >=0.2.2a0
+    - pysocks >=1.6.7
+    - python
+    - python-gnupg
+    - pyyaml >=3.12
+    - requests
+    - schedula
+    - schema
+    - toolz
+    - transitions >=0.5.0
+    - unidecode
+    - validate_email
+
+test:
+  imports:
+    - co2dice
+    - co2dice._vendor
+    - co2dice._vendor.traitlets
+    - co2dice._vendor.traitlets.config
+    - co2dice._vendor.traitlets.utils
+    - co2dice.utils
+  commands:
+    - co2dice --help
+  requires:
+    - ddt
+    - flake8
+    - flake8-builtins
+    - flake8-mutable
+    - pytest
+    - pytest-runner
+
+about:
+  home: https://co2mpas.io/
+  license: European Union Public Licence 1.1 (EUPL 1.1)
+  license_family: OTHER
+  license_file: 
+  summary: Distributed Impromptu Co2mpas Evaluation
+  doc_url: https://co2mpas.io/
+  dev_url: https://github.com/JRCSTU/CO2MPAS-TA
+
+extra:
+  recipe-maintainers:
+    - ankostis

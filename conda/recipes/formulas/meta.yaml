@@ -27,7 +27,7 @@ requirements:
     - lxml
     - multiprocess
     - nose
-    - numpy
+    - {{ pin_compatible('numpy', lower_bound='1.15') }}
     - openpyxl
     - pip
     - pygments

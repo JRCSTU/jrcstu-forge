@@ -1,0 +1,16 @@
+--- src/co2gui/__init__.py
++++ src/co2gui/__init__.py
+@@ -611,8 +610,11 @@ def add_tooltip(widget, key, allow_misses=False, no_lookup=False,
+     """
+     try:
+         from idlelib.ToolTip import ToolTip  # @UnusedImport @UnresolvedImport
+-    except Exception:
+-        from idlelib.tooltip import ToolTip  # @UnresolvedImport @Reimport
++    except ImportError:
++        try:
++            from idlelib.tooltip import ToolTip  # @UnresolvedImport @Reimport
++        except ImportError:
++            return  # Conda-python does not have proper idlelib!
+
+     if no_lookup:
+         tooltip_text = key

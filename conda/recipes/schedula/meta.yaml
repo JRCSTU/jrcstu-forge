@@ -30,7 +30,7 @@ requirements:
     - nose
     - pip
     - pygments
-    - python    >=3.5
+    - {{ pin_compatible('numpy', lower_bound='3.5') }}
     - python-graphviz
     - regex
     - requests

@@ -1,6 +1,6 @@
 ## Based on https://medium.com/@Amet13/building-a-cross-platform-python-installer-using-conda-constructor-f91b70d393
 
-name: co2sim
+name: CO2MPAS
 version: 3.0.0
 company: JRC-STU
 
@@ -16,8 +16,9 @@ specs:
   - conda
   - menuinst          [win]
   - console_shortcut  [win]
-  - graphviz
+  - graphviz                  # the executable app
   - co2sim 3.0.0
+  - co2gui 3.0.0
   # co2sim[io] dependencies
   - boltons
   #- contextvars        [py<37]       # for co2mpare, backported for <PY37
@@ -45,9 +46,8 @@ specs:
   - docutils
   - multiprocess
 
-post_install:
-  post_install.sh     [not win]
-  post_install.bat    [win]
+post_install: post_install.sh       [not win]
+post_install: post_install.bat      [win]
 
 license_file: ../../../LICENSE.txt
 welcome_image: CO2MPAS_banner.png   [win]

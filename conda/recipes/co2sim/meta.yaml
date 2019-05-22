@@ -14,7 +14,7 @@ source:
 
 build:
   number: 0
-  #noarch: python
+  noarch: python
   skip: True                  # [py<35]
   entry_points:
     - co2mpas = co2mpas.__main__:main
@@ -26,7 +26,7 @@ requirements:
     - colorama
     - formulas >=0.0.10
     - lmfit >=0.9.7
-    - {{ pin_compatible('numpy') }}
+    - numpy
     - pandalone >=0.2.4
     - pandas >=0.21.0
     - pip
@@ -59,7 +59,7 @@ requirements:
     - docopt
     - formulas >=0.0.10
     - lmfit >=0.9.7
-    - {{ pin_compatible('numpy') }}
+    - numpy
     - pandalone >=0.2.4
     - pandas >=0.21.0
     - polyversion >=0.2.2a0
@@ -71,6 +71,7 @@ requirements:
     - scikit-learn
     - scipy
     - wltp
+    # [io] & schedula[plot] optional deps
     - boltons
     - contextvars             # [py<37] for co2mpare, backported for <PY
     - cryptography
