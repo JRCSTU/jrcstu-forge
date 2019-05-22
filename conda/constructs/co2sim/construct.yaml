@@ -4,6 +4,9 @@ name: CO2MPAS
 version: 3.0.0
 company: JRC-STU
 
+initialize_by_default: true
+register_python_default: false
+
 channels:
   - https://conda.anaconda.org/bioconda
   - https://conda.anaconda.org/conda-forge
@@ -12,13 +15,13 @@ channels:
   - http://repo.anaconda.com/pkgs/main/
   - https://conda.anaconda.org/ankostis
 specs:
-  - python 3.7*
+  - python
   - conda
   - menuinst          [win]
   - console_shortcut  [win]
   - graphviz                  # the executable app
-  - co2sim 3.0.0
-  - co2gui 3.0.0
+  - co2sim ==3.0.0
+  - co2gui ==3.0.0
   # co2sim[io] dependencies
   - boltons
   #- contextvars        [py<37]       # for co2mpare, backported for <PY37
@@ -26,7 +29,8 @@ specs:
   - dill !=0.2.7
   - docopt
   - openpyxl >=2.4.0
-  - pandalone[xlrd]>=0.2.0    # for datasync pascha-fixes and openpyxl version
+  - pandalone >=0.2.0    # for datasync pascha-fixes and openpyxl version
+  - xlrd
   - pip
   - PyYAML >=3.12
   - toolz
@@ -45,7 +49,8 @@ specs:
   - jinja2
   - docutils
   - multiprocess
-
+exclude:
+  
 post_install: post_install.sh       [not win]
 post_install: post_install.bat      [win]
 
