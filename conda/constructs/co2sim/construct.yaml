@@ -15,11 +15,12 @@ channels:
   - http://repo.anaconda.com/pkgs/main/
   - https://conda.anaconda.org/ankostis
 specs:
-  - python
+  - python            [win] # Unexplained conflict with co2gui
+  - python >=3.7      [not win]
   - conda
   - menuinst          [win]
   - console_shortcut  [win]
-  - graphviz                  # the executable app
+  - graphviz                # the executable app
   - co2sim ==3.0.0
   - co2gui ==3.0.0
   # co2sim[io] dependencies
@@ -29,7 +30,7 @@ specs:
   - dill !=0.2.7
   - docopt
   - openpyxl >=2.4.0
-  - pandalone >=0.2.0    # for datasync pascha-fixes and openpyxl version
+  - pandalone >=0.2.0       # for datasync pascha-fixes and openpyxl version
   - xlrd
   - pip
   - PyYAML >=3.12
@@ -39,7 +40,7 @@ specs:
   - xlsxwriter
   # co2sim[plot] dependencies
   - matplotlib
-  - python-graphviz           # this one https://graphviz.readthedocs.io/
+  - python-graphviz         # this one https://graphviz.readthedocs.io/
   # schedula & formulas [plot] dependencies
   - sphinx
   - flask
@@ -50,7 +51,9 @@ specs:
   - docutils
   - multiprocess
 exclude:
-  
+  - qt
+  - pyqt
+
 post_install: post_install.sh       [not win]
 post_install: post_install.bat      [win]
 
