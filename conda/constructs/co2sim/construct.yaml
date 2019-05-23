@@ -4,7 +4,7 @@ name: CO2MPAS
 version: 3.0.0
 company: JRC-STU
 
-initialize_by_default: true
+initialize_by_default: false
 register_python_default: false
 
 channels:
@@ -15,17 +15,18 @@ channels:
   - http://repo.anaconda.com/pkgs/main/
   - https://conda.anaconda.org/ankostis
 specs:
-  - python            [win] # Unexplained conflict with co2gui
-  - python >=3.7      [not win]
+  - python 3.6.*
   - conda
-  - menuinst          [win]
-  - console_shortcut  [win]
+  - menuinst          # [win]
+  - console_shortcut  # [win]
+  - anaconda-navigator
   - graphviz                # the executable app
-  - co2sim ==3.0.0
-  - co2gui ==3.0.0
+  - co2sim 3.0.0
+  - co2gui 3.0.0
+  - co2dice 3.0.0
   # co2sim[io] dependencies
   - boltons
-  #- contextvars        [py<37]       # for co2mpare, backported for <PY37
+  - contextvars        # [py<37]       # for co2mpare, backported for <PY37
   - cryptography
   - dill !=0.2.7
   - docopt
@@ -54,9 +55,10 @@ exclude:
   - qt
   - pyqt
 
-post_install: post_install.sh       [not win]
-post_install: post_install.bat      [win]
+post_install: post_install.sh       # [not win]
+post_install: post_install.bat      # [win]
 
 license_file: ../../../LICENSE.txt
-welcome_image: CO2MPAS_banner.png   [win]
-icon_image: CO2MPAS_logo.png        [win]
+welcome_image: CO2MPAS_GUI.png      # [win] 
+header_image: CO2MPAS_banner.png    # [win]
+icon_image: CO2MPAS_logo.png        # [win]
