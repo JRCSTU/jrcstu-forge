@@ -52,8 +52,6 @@ specs:
   - docutils
   - multiprocess
 exclude:
-  - qt
-  - pyqt
 
 post_install: post_install.sh       # [not win]
 post_install: post_install.bat      # [win]
