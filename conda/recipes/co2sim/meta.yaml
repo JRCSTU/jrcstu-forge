@@ -9,13 +9,12 @@ source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 291f19f7776d98597b26028543a2b88fdc6bd79eea241813cc68cc944b2e9e19
   patches:
-    # `xgboost` exists only conda-forge but not for Windows!
+    # should be `py-xgboost`; `xgboost` exists in conda-forge only & not for Windows!
     - 0001-xgboost-canonical.patch
 
 build:
   number: 0
-  #noarch: python
-  skip: True                  # [py<35]
+  noarch: python
   entry_points:
     - co2mpas = co2mpas.__main__:main
     - datasync = co2mpas.datasync:main
@@ -42,7 +41,7 @@ requirements:
     - wltp
     - py-xgboost
     - boltons
-    - contextvars             # [py<37] for co2mpare, backported for <PY
+    - contextvars             # for co2mpare, backported for PY<3.7
     - cryptography
     - dill !=0.2.7
     - docopt
@@ -73,7 +72,7 @@ requirements:
     - wltp
     # [io] & schedula[plot] optional deps
     - boltons
-    - contextvars             # [py<37] for co2mpare, backported for <PY
+    - contextvars             # for co2mpare, backported for PY<3.7
     - cryptography
     - dill !=0.2.7
     - docopt

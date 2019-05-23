@@ -14,7 +14,7 @@ source:
 
 build:
   number: 0
-  #noarch: python
+  noarch: python
   entry_points:
     - co2gui = co2gui.__main__:main
   script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
@@ -23,17 +23,31 @@ requirements:
   host:
     - python >=3.5
     - boltons
-    - co2dice
     - co2sim
+    - co2dice
+    # [io] & schedula[plot] optional deps
+    - boltons
+    - contextvars             # for co2mpare, backported for PY<3.7
+    - cryptography
+    - dill !=0.2.7
+    - docopt
+    - openpyxl >=2.4.0
+    - pandalone >=0.2.0
+    - xlrd
+    - pip
+    - PyYAML >=3.12
+    - toolz
+    - tqdm
+    - xlsxwriter
   run:
     - python >=3.5
     - boltons
     - co2dice
     - co2sim
     - pillow
-    # co2sim[io] & schedula[plot] optional deps
+    # [io] & schedula[plot] optional deps
     - boltons
-    - contextvars             # [py<37] for co2mpare, backported for <PY
+    - contextvars             # for co2mpare, backported for PY<3.7
     - cryptography
     - dill !=0.2.7
     - docopt

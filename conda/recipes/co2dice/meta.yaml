@@ -11,7 +11,7 @@ source:
 
 build:
   number: 0
-  #noarch: python
+  noarch: python
   entry_points:
     - co2dice = co2dice.__main__:main
   script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
@@ -19,17 +19,18 @@ build:
 requirements:
   host:
     - boltons
-    - co2sim[io]
+    - co2sim
     - gitpython >=2.1.8
     - ipython_genutils
     - numpy
-    - pandalone[xlrd] >=0.2.0
+    - pandalone >=0.2.0
+    - xlrd
     - pandas
     - parsedatetime
     - pip
     - polyversion >=0.2.2a0
     - pysocks >=1.6.7
-    - python
+    - python >=3.5
     - python-gnupg
     - pyyaml >=3.12
     - schedula
@@ -51,7 +52,7 @@ requirements:
     - parsedatetime
     - polyversion >=0.2.2a0
     - pysocks >=1.6.7
-    - python
+    - python >=3.5
     - python-gnupg
     - pyyaml >=3.12
     - requests
@@ -84,8 +85,8 @@ about:
   home: https://co2mpas.io/
   license: European Union Public Licence 1.1 (EUPL 1.1)
   license_family: OTHER
-  license_file: 
-  summary: Distributed Impromptu Co2mpas Evaluation
+  license_file: ../../../LICENSE.txt
+  summary: Decentralized Impromptu Co2mpas Evaluation
   doc_url: https://co2mpas.io/
   dev_url: https://github.com/JRCSTU/CO2MPAS-TA
 
