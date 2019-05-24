@@ -10,44 +10,31 @@ IF EXIST site-packages (
     rmdir /S/Q site-packages
 )
 
-:: Conda-install `noarch` packages for which  entry-points & menus are needed.
+:: Conda-install `noarch` packages for which entry-points & menus are needed.
 ::
-for %%i in (co2mpas co2dice co2gui) do (
-    conda install -y pkgs\%%i
-)
-conda install pkgs co2mpas %* 
-:co2mpas
+set co2progs=
+for /R pkgs %%i in (co2*.tar.bz2) do call set co2progs=%%co2progs%% "%%i"
+conda install -y %co2progs%
+::rmdir /S/Q pkgs/*tar.bz2
 
-call :heredoc co2dice >Library/bin/co2dice.bat && goto co2dice
-@echo off 
-python -m co2dice %* 
-:co2dice
-
-call :heredoc co2gui >Library/bin/co2gui.bat && goto co2gui
-@echo off 
-python -m co2gui %* 
-:co2gui
-
-call :heredoc datasync >Library/bin/datasync.bat && goto datasync
-@echo off 
-python -m co2mpas.datasync %* 
-:datasync
-
-:: From https://github.com/ContinuumIO/menuinst/wiki/Menu-Shortcut-Config-Structure
-call :heredoc menuitems >Menu/co2mpas.json && goto menuitems
+:: Syntax in https://github.com/ContinuumIO/menuinst/wiki/Menu-Shortcut-Config-Structure
+call :heredoc menuitems >Menu/co2mpas-3.0.0.json && goto menuitems
 {
-    "menu_name": "CO2MPAS",
+    "menu_name": "CO2MPAS-3.0.0",
     "menu_items":
         [
             {
                 "pywscript": "${PREFIX}/Lib/site-packages/co2gui/__main__.py",
-                "name": "co2gui"
+                "name": "co2gui",
+                "icon": "${MENU_DIR}/CO2MPAS_logo.ico"
             },
             {
-                "pyscript": "${PREFIX}/Lib/site-packages/xonsh/__main__.py",
-                "name": "console",
+                "script": "${PREFIX}/python.exe",
+                "scriptarguments": ["-m", "xonsh"],
+                "name": "CO2MPAS console",
                 "workdir": "${USERPROFILE}",
- 			},
+                "icon": "${MENU_DIR}/xonsh.ico"
+            },
             {
                 "webbrowser": "https://co2mpas.io",
                 "name": "co2mpas documentation"
