@@ -17,9 +17,13 @@ channels:
 specs:
   - python 3.6.*
   - conda
-  - menuinst          [win]
-  - console_shortcut  [win]
-  - anaconda-navigator
+  - menuinst            [win]
+  - console_shortcut    [win]
+  - anaconda-navigator  [win]
+  - qtpy                [win]
+  - qtconsole           [win]
+  - xonsh
+  - xonda
   - graphviz                # the executable app
   - co2sim 3.0.0
   - co2gui 3.0.0
@@ -52,6 +56,8 @@ specs:
   - docutils
   - multiprocess
 exclude:
+  - qt    [not win]
+  - pyqt  [not win]
 
 post_install: post_install.sh       [not win]
 post_install: post_install.bat      [win]
