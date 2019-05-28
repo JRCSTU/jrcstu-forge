@@ -194,6 +194,7 @@ Vagrant.configure("2") do |config|
           pip anaconda-client constructor \
           xonsh xonda \
           numpy numpy-base py-xgboost pyyaml regex scikit-learn tqdm scipy pandas \
+          schedula formulas pandalone wltp \
           xlrd dill \
           sphinx docutils Pygments \
           flask lxml beautifulsoup4 jinja2 graphviz \
