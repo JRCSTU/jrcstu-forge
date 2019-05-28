@@ -181,7 +181,7 @@ Vagrant.configure("2") do |config|
       # Priortize default channel not to update `certifi` package from `conda-forge`.
       # TODO: switch conda-cloud account from ankostis --> jrcstu when ready.
       conda config --env --append channels conda-forge
-      conda config --env --append channels bioconda-forge
+      conda config --env --append channels bioconda
       conda config --env --prepend channels ankostis
 
       # Not installin our projects (use `conda develop <git-cloned-dir>``):
