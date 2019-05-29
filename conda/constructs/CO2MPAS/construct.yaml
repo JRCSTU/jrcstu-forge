@@ -56,6 +56,10 @@ specs:
 exclude:
   - qt
   - pyqt
+menu_packages:
+  - co2sim
+  - co2dice
+  - co2gui
 
 post_install: post_install.sh       [not win]
 post_install: post_install.bat      [win]

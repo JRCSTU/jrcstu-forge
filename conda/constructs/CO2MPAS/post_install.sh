@@ -11,3 +11,7 @@ if [[ -e site-packages ]]; then
     rm -r site-packages
 fi
 
+conda install -y co2*.tar.bz2
+
+## Clean packages kept by constructor.yaml: keep_pkgs: true
+#rm -f pkgs/*.tar.bz2
