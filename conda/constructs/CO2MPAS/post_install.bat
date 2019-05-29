@@ -18,7 +18,7 @@ conda install -y %co2progs%
 ::rmdir /S/Q pkgs/*tar.bz2
 
 :: Syntax in https://github.com/ContinuumIO/menuinst/wiki/Menu-Shortcut-Config-Structure
-call :heredoc menuitems >Menu/co2mpas-3.0.0.json && goto menuitems
+call :heredoc menuitems >Menu/co2mpas.json && goto menuitems
 {
     "menu_name": "CO2MPAS-3.0.0",
     "menu_items":
@@ -29,9 +29,15 @@ call :heredoc menuitems >Menu/co2mpas-3.0.0.json && goto menuitems
                 "icon": "${MENU_DIR}/CO2MPAS_logo.ico"
             },
             {
+                "script": "cmd.exe",
+                "scriptarguments": ["/K", "${PREFIX}\\Scripts\\activate.bat ${PREFIX}"],
+                "name": "CO2MPAS console",
+                "workdir": "${USERPROFILE}"
+            },
+            {
                 "script": "${PREFIX}/python.exe",
                 "scriptarguments": ["-m", "xonsh"],
-                "name": "CO2MPAS console",
+                "name": "CO2MPAS console (xonsh)",
                 "workdir": "${USERPROFILE}",
                 "icon": "${MENU_DIR}/xonsh.ico"
             },
