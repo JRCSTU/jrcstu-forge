@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
   # https://docs.vagrantup.com.
 
   # PLUGINS needed:
-  config.vagrant.plugins = %w(winrm-fs winrm-elevated vagrant-vbguest vagrant-reload)
+  config.vagrant.plugins = %w(winrm-elevated vagrant-vbguest vagrant-reload)
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
