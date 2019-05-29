@@ -1,0 +1,11 @@
+{
+    "menu_name": "CO2MPAS-3.0.0",
+    "menu_items":
+        [
+            {
+                "pywscript": "${PREFIX}/Lib/site-packages/co2gui/__main__.py",
+                "name": "co2gui",
+                "icon": "${MENU_DIR}/co2gui.ico"
+            }
+        ]
+}

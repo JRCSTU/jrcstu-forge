@@ -1,0 +1,25 @@
+{
+    "menu_name": "CO2MPAS-3.0.0",
+    "menu_items":
+        [
+            {
+                "script": "cmd.exe",
+                "scriptarguments": ["/K", "${PYTHON_SCRIPTS}/activate.bat ${PREFIX}"],
+                "name": "co2mpas console",
+                "workdir": "${USERPROFILE}",
+                "icon": "${MENU_DIR}/co2sim.ico"
+            },
+            {
+                "script": "${PREFIX}/python.exe",
+                "scriptarguments": ["-m", "xonsh"],
+                "name": "co2mpas console (xonsh)",
+                "workdir": "${USERPROFILE}",
+                "icon": "${MENU_DIR}/co2sim.ico"
+            },
+            {
+                "webbrowser": "https://co2mpas.io",
+                "name": "co2mpas documentation",
+                "icon": "${MENU_DIR}/co2sim.ico"
+            }
+        ]
+}

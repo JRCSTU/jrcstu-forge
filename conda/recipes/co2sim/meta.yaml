@@ -13,13 +13,12 @@ source:
     - 0001-xgboost-canonical.patch
 
 build:
-  number: 0
+  number: 1
   noarch: python
   entry_points:
     - co2mpas = co2mpas.__main__:main
     - datasync = co2mpas.datasync:main
-  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
-
+  
 requirements:
   host:
     - colorama
@@ -53,6 +52,7 @@ requirements:
     - toolz
     - tqdm
     - xlsxwriter
+    - menuinst                # [win]
   run:
     - colorama
     - docopt

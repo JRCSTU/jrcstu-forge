@@ -13,11 +13,10 @@ source:
     - 0002-noIdlelibTooltip.patch
 
 build:
-  number: 0
+  number: 1
   noarch: python
   entry_points:
     - co2gui = co2gui.__main__:main
-  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
 
 requirements:
   host:
@@ -39,6 +38,7 @@ requirements:
     - toolz
     - tqdm
     - xlsxwriter
+    - menuinst                # [win]
   run:
     - python >=3.5
     - boltons

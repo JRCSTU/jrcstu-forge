@@ -10,11 +10,10 @@ source:
   sha256: 19ec15afd41c8377f348e23d4e2ee61f7ebf29f9f4d1d63f632f75d687396c98
 
 build:
-  number: 0
+  number: 1
   noarch: python
   entry_points:
     - co2dice = co2dice.__main__:main
-  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
 
 requirements:
   host:
@@ -39,6 +38,7 @@ requirements:
     - transitions >=0.5.0
     - unidecode
     - validate_email
+    - menuinst                # [win]
   run:
     - boltons
     - co2sim
