@@ -70,6 +70,7 @@ Vagrant.configure("2") do |config|
     vb.customize ['modifyvm', :id, '--clipboard', 'bidirectional']
     vb.customize ["modifyvm", :id, "--draganddrop", "bidirectional"]
     vb.customize ["modifyvm", :id, "--accelerate2dvideo", "on"]
+    vb.customize ["modifyvm", :id, "--vram", "32"]  # 27Mb needed to support full-screen
 
     # See https://www.vagrantup.com/docs/virtualbox/configuration.html#linked-clone
     #vb.linked_clone = true
