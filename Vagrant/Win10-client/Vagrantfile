@@ -1,0 +1,155 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby sts=2 ts=2 sw=2 :
+
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure("2") do |config|
+  # The most common configuration options are documented and commented below.
+  # For a complete reference, please see the online documentation at
+  # https://docs.vagrantup.com.
+
+  # PLUGINS needed:
+  config.vagrant.plugins = %w(winrm-elevated vagrant-vbguest vagrant-reload)
+
+  # Every Vagrant development environment requires a box. You can search for
+  # boxes at https://vagrantcloud.com/search.
+  config.vm.box = "gusztavvargadr/windows-10"
+
+  # Disable automatic box update checking. If you disable this, then
+  # boxes will only be checked for updates when the user runs
+  # `vagrant box outdated`. This is not recommended.
+  config.vm.box_check_update = false
+
+  # Create a forwarded port mapping which allows access to a specific port
+  # within the machine from a port on the host machine. In the example below,
+  # accessing "localhost:8080" will access port 80 on the guest machine.
+  # NOTE: This will enable public access to the opened port
+  # config.vm.network "forwarded_port", guest: 80, host: 8080
+
+  # Create a forwarded port mapping which allows access to a specific port
+  # within the machine from a port on the host machine and only allow access
+  # via 127.0.0.1 to disable public access
+  # config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
+
+  # Create a private network, which allows host-only access to the machine
+  # using a specific IP.
+  # config.vm.network "private_network", ip: "192.168.33.10"
+
+  # Create a public network, which generally matched to bridged network.
+  # Bridged networks make the machine appear as another physical device on
+  # your network.
+  # config.vm.network "public_network"
+
+  # Share an additional folder to the guest VM. The first argument is
+  # the path on the host to the actual folder. The second argument is
+  # the path on the guest to mount the folder. And the optional third
+  # argument is a set of non-required options.
+  # config.vm.synced_folder "../data", "/vagrant_data"
+
+  # Stop the following boot-up warning:
+  # 	Sorry, don't know how to check guest version of Virtualbox Guest Additions on this platform. Stopping installation.
+  config.vbguest.auto_update = false
+
+  # Provider-specific configuration so you can fine-tune various
+  # backing providers for Vagrant. These expose provider-specific options.
+  # Example for VirtualBox:
+  #
+  config.vm.provider "virtualbox" do |vb|
+    vb.name = "co2_win10_client"
+    # Display the VirtualBox GUI when booting the machine
+    vb.gui = true
+
+    vb.memory = "2048"
+    vb.cpus = "2"
+
+    # From https://zwischenzugs.com/2017/10/27/ten-things-i-wish-id-known-before-using-vagrant/
+    #      https://stackoverflow.com/questions/37562740/enable-dragndrop-in-vagrant-privisioning
+    vb.customize ['modifyvm', :id, '--clipboard', 'bidirectional']
+    vb.customize ["modifyvm", :id, "--draganddrop", "bidirectional"]
+    vb.customize ["modifyvm", :id, "--accelerate2dvideo", "on"]
+
+    # See https://www.vagrantup.com/docs/virtualbox/configuration.html#linked-clone
+    #vb.linked_clone = true
+  end
+
+  # View the documentation for the provider you are using for more
+  # information on available options.
+
+  # Install apps with chocolatey (see `chocopackages.config`), and
+  # perform other OS configurations.
+  config.vm.provision "app_install", type: :shell do |s|
+    s.inline = <<-SHELL
+      Set-PSDebug -Trace 1
+
+    # # Where should *chocolatey* tools install?
+    # # Original: "C:/tools"
+    # $Env:ChocolateyToolsLocation = "C:/Apps"
+    # [Environment]::SetEnvironmentVariable("ChocolateyToolsLocation", "C:/Apps", "Machine")
+
+      # Install chocolatey packages listed in vbguest's shared-folder.
+      choco install -y --no-progress  --limitoutput C:/vagrant/chocopackages.config
+
+      # choco(docker-toolbox): delegate `docker`(client) on Guest --> `dockerd` on the Host.
+      # Rational: 
+      #   Cannot install the newer docker-for-windows (choco(docker-desktop)) in a VirtualBox VM
+      #   bc it needs Hyper-V (a Type-1 hypervisor), which cannot yet nest inside a VirtualBox, 
+      #   as explained in: https://medium.com/@peorth/using-docker-with-virtualbox-and-windows-10-b351e7a34adc
+      # TIP: 
+      #   To enable `dockerd` listening 2375 port on Host, see:
+      #   https://gist.github.com/styblope/dc55e0ad2a9848f2cc3307d4819d819f
+      # HINT:
+      #   10.0.2.2 is NAT's reserved ip-address for accessing ports of the gateway
+      #   port 2375 is the default for plain dockerd
+      #   port 2376 is the default for TLS dockerd
+      set-item ENV:DOCKER_HOST "10.0.2.2:2375"
+
+      # TotalCommander: show hidden files.
+      Copy-Item  C:/vagrant/wincmd.ini $env:APPDATA/GHISLER/
+      # TotalCommander: installs both 64bit & 32bit - remove the later
+      Remove-Item  "c:/Users/Public/Desktop/Total Commander.lnk"
+    SHELL
+  end
+
+
+  # Docker needs this (at least) & finalize base-box for all registry-keys to exist.
+  config.vm.provision "1st_reboot", type: :reload
+
+
+  # Various registry edits.
+  config.vm.provision "regedits", type: :shell do |s|
+    s.inline = <<-SHELL
+      Set-PSDebug -Trace 1
+
+      # Suppress(?) Network-discovery question.
+      Set-NetConnectionProfile -Name Network -NetworkCategory Private
+
+      # Do not combine apps in taskbar.
+      # From https://www.lifewire.com/how-to-disable-taskbar-button-grouping-2626110
+      Set-ItemProperty "HKCU:/Software/Microsoft/Windows/CurrentVersion/Explorer/Advanced" TaskbarGlomLevel 2
+
+      # Auto-login on boot.
+      # See https://support.microsoft.com/en-us/help/324737/how-to-turn-on-automatic-logon-in-windows
+      $regpath = "HKLM:/SOFTWARE/Microsoft/Windows NT/CurrentVersion/Winlogon"
+      Set-ItemProperty $regpath DefaultUserName vagrant
+      Set-ItemProperty $regpath DefaultPassword vagrant
+      Set-ItemProperty $regpath AutoAdminLogon 1
+
+      # Don't startup OneDrive
+      # From https://www.top-password.com/blog/stop-onedrive-from-automatically-starting-in-windows-10/
+      Remove-ItemProperty -Path "HKCU:/Software/Microsoft/Windows/CurrentVersion/Run" -Name "OneDrive"
+
+      # Disable Cortana
+      # (from https://gallery.technet.microsoft.com/scriptcenter/How-to-disable-Cortana-on-b44924a4)
+      $regpath = "HKLM:/SOFTWARE/Policies/Microsoft/Windows/Windows Search"
+      IF(!(Test-Path -Path $regpath)) {
+          New-Item -Path "HKLM:/SOFTWARE/Policies/Microsoft/Windows" -Name "Windows Search"
+      }
+      Set-ItemProperty -Path $regpath -Name "AllowCortana" -Value 1
+      #Restart Explorer to change it immediately
+      Stop-Process -name explorer
+    SHELL
+  end
+end

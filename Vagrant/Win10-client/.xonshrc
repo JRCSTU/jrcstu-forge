@@ -1,0 +1,2 @@
+xontrib load bashisms xonda
+$XONSH_HISTORY_MATCH_ANYWHERE = True

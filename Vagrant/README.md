@@ -10,7 +10,7 @@
         winrm winrm-fs winrm-elevated vagrant-vbguest vagrant-reload
 
 
-## Build & Launch VM
+## Build & Launch DevVM
 
 Copy the `Vagrantfile` to some folder, optionally edit it
 (or use `~/.Vagrantfile`), e.g. to set the CPUs/Memory,
@@ -33,6 +33,15 @@ these steps:
     user    0m18.010s
     sys     0m10.250s
 
+
+# Launch ClientVM
+
+Again in my super-speedy laptop, it takes:
+
+    $ vagrant up
+    real    12m2.764s
+    user    0m12.696s
+    sys     0m7.322s
 
 ## Re-provision VM
 
