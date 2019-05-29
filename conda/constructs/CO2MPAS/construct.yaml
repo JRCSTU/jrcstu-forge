@@ -63,7 +63,7 @@ exclude:
 post_install: post_install.sh       [not win]
 post_install: post_install.bat      [win]
 
-license_file: ../../../LICENSE.txt
+license_file: LICENSE.txt
 welcome_image: CO2MPAS_GUI.png      [win] 
 header_image: CO2MPAS_banner.png    [win]
 icon_image: CO2MPAS_logo.png        [win]
