@@ -1,5 +1,5 @@
 {% set name = "wltp" %}
-{% set version = "0.1.0a3" %}
+{% set version = "0.1.2a0" %}
 
 package:
   name: "{{ name|lower }}"
@@ -7,10 +7,10 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: e8f7815fc2c317c02cfed2c61efe86f2a909b5f42c1a197acd41e6b48ea1d234
+  sha256: 82107f71ba85f36cdd4b44c5d4e8595a5dc9a9a737789d2a7e0c867dc043e630
 
 build:
-  #noarch: python
+  noarch: python
   number: 0
   script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
   entry_points:
@@ -18,7 +18,7 @@ build:
 
 requirements:
   host:
-    - jsonschema >=2.5
+    - jsonschema >=2.5, <3
     - numpy
     - pandas
     - pip
@@ -26,7 +26,7 @@ requirements:
     - setuptools-git
     - six
   run:
-    - jsonschema >=2.5
+    - jsonschema >=2.5, <3
     - numpy
     - pandas
     - python
