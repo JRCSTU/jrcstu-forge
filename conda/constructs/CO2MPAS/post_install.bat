@@ -14,7 +14,7 @@ IF EXIST site-packages (
 ::
 set co2progs=
 for /R pkgs %%i in (co2*.tar.bz2) do call set co2progs=%%co2progs%% "%%i"
-conda install -y %co2progs%
+.\Library\bin\conda install -y %co2progs%
 
 :: Clean packages kept by constructor.yaml: keep_pkgs: true
 ::rmdir /S/Q pkgs/*.tar.bz2
