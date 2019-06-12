@@ -17,4 +17,5 @@ for /R pkgs %%i in (co2*.tar.bz2) do call set co2progs=%%co2progs%% "%%i"
 .\Library\bin\conda install -y %co2progs%
 
 :: Clean packages kept by constructor.yaml: keep_pkgs: true
-::rmdir /S/Q pkgs/*.tar.bz2
+rmdir /S/Q pkgs
+md pkgs
