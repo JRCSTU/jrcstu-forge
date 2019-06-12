@@ -16,6 +16,7 @@ set co2progs=
 for /R pkgs %%i in (co2*.tar.bz2) do call set co2progs=%%co2progs%% "%%i"
 .\Library\bin\conda install -y %co2progs%
 
-:: Clean packages kept by constructor.yaml: keep_pkgs: true
-rmdir /S/Q pkgs
-md pkgs
+:: DO NOT CLEAN packages kept by constructor.yaml: keep_pkgs: true
+:: so that menu-items can be rebuilt if another co2mpas is uninstalled.
+::rmdir /S/Q pkgs
+::md pkgs
