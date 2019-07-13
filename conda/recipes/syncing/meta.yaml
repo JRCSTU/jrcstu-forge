@@ -25,6 +25,16 @@ requirements:
     - pyyaml
     - schedula
     - scipy >=0.3.1
+    # Libs below needed by conda-build docs.
+    - beautifulsoup4
+    - lxml
+    - regex
+    - python-graphviz
+    - sphinx
+    - sphinx-click
+    - sphinx_rtd_theme
+    - sphinxcontrib-restbuilder
+    - matplotlib
     - xlrd >=1.0.0
   run:
     - click
@@ -53,9 +63,9 @@ test:
     - pytest
     - ddt
     - beautifulsoup4
-    - python-graphviz
     - lxml
     - matplotlib
+    - python-graphviz
     - regex
     - sphinx
     - sphinx-click
