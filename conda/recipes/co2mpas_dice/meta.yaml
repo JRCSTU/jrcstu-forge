@@ -1,92 +1,67 @@
-{% set name = "co2dice" %}
-{% set version = "3.0.0" %}
+{% set name = "co2mpas_dice" %}
+{% set version = "4.0.0.dev0" %}
 
 package:
   name: "{{ name|lower }}"
   version: "{{ version }}"
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 19ec15afd41c8377f348e23d4e2ee61f7ebf29f9f4d1d63f632f75d687396c98
+  path: ../../../../DICE.git/back-end
 
 build:
-  number: 1
+  number: 0
   noarch: python
-  entry_points:
-    - co2dice = co2dice.__main__:main
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
 
 requirements:
   host:
-    - boltons
-    - co2sim
-    - gitpython >=2.1.8
-    - ipython_genutils
+    - python
+    - cryptography
+    - lmfit
     - numpy
-    - pandalone >=0.2.0
-    - xlrd
-    - pandas
-    - parsedatetime
-    - pip
-    - polyversion >=0.2.2a0
-    - pysocks >=1.6.7
-    - python >=3.5
-    - python-gnupg
-    - pyyaml >=3.12
+    - pyyaml
     - schedula
-    - schema
-    - toolz
-    - transitions >=0.5.0
-    - unidecode
-    - validate_email
-    - menuinst                # [win]
+    - scipy
   run:
-    - boltons
-    - co2sim
-    - colorama
-    - gitpython >=2.1.8
-    - ipython_genutils
+    - cryptography
+    - lmfit
     - numpy
-    - pandalone >=0.2.0
-    - xlrd
-    - pandas
-    - parsedatetime
-    - polyversion >=0.2.2a0
-    - pysocks >=1.6.7
-    - python >=3.5
-    - python-gnupg
-    - pyyaml >=3.12
-    - requests
+    - pyyaml
     - schedula
-    - schema
-    - toolz
-    - transitions >=0.5.0
-    - unidecode
-    - validate_email
+    - scipy
 
 test:
-  imports:
-    - co2dice
-    - co2dice._vendor
-    - co2dice._vendor.traitlets
-    - co2dice._vendor.traitlets.config
-    - co2dice._vendor.traitlets.utils
-    - co2dice.utils
-  commands:
-    - co2dice --help
   requires:
-    - ddt
-    - flake8
-    - flake8-builtins
-    - flake8-mutable
-    - pytest
-    - pytest-runner
+    - click
+    - click-log
+    - docutils
+    - flask
+    - gunicorn
+    - jinja2
+    - jsonschema
+    - mysql-connector-python
+    - pandas
+    - tabulate
+    - werkzeug
+  imports:
+    - {{ name }}.co2mpas
+    - {{ name }}.co2mpas.declaration
+    - {{ name }}.co2mpas.verify
+    - {{ name }}.validate
+    - {{ name }}.crypto
+    - {{ name }}.err
+    - {{ name }}.config
+    - {{ name }}.tar
+  commands:
+    - {{ name }} --help
+    - {{ name }} --version
 
 about:
   home: https://co2mpas.io/
   license: European Union Public Licence 1.1 (EUPL 1.1)
   license_family: OTHER
   license_file: ../../../LICENSE.txt
-  summary: Decentralized Impromptu Co2mpas Evaluation
+  summary: Client code for packaging co2mpas results
   doc_url: https://co2mpas.io/
   dev_url: https://github.com/JRCSTU/CO2MPAS-TA
 
