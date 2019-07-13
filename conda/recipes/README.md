@@ -1,22 +1,27 @@
 # Recipes for co2mpas-dependencies with missing packages
 
 ## Instructions
+Ensure that conda is latest, and that *base* env has `conda-build` & `conda-verify` 
+(suggested  by conda-build warn).
+
 Create and activate a new development environment::
 
-    conda create -n co2dev
+    # `ripgrep` suggested by conda-build warn for faster prefix-searches.
+    conda create -n co2dev ripgrep 
     conda activate co2dev
 
 I recommend to use these conda-channels for your dev environment:
 
 
 ```
-conda config --env --remove-key channels  conda-forge   # (optional) clean existing keys
+# (optional) clean existing keys
+conda config --remove-key channels
 
-conda config --env --append channels  defaults
-conda config --env --append channels  conda-forge
-conda config --env --append channels  bioconda
-conda config --env --prepend channels ankostis
-conda config --env --prepend channels local
+conda config --append channels  defaults
+conda config --append channels  conda-forge
+conda config --append channels  bioconda
+conda config --prepend channels ankostis
+conda config --prepend channels local
 ```
 
 And verify that you end up with that:
