@@ -54,10 +54,10 @@ test:
     - setup.py
     - README.rst
   imports:
-    - syncing
+    - {{ name }}
   commands:
-    - syncing --help
-    - syncing --version
+    - {{ name }} --help
+    - {{ name }} --version
     - pytest test --ignore test/test_setup.py
   requires:
     - pytest
