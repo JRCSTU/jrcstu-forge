@@ -1,0 +1,76 @@
+{% set name = "syncing" %}
+{% set version = "1.0.0" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  path: ../../../../syncing.git
+
+
+build:
+  number: 0
+  noarch: python
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
+
+requirements:
+  host:
+    - python
+    - click
+    - click-log
+    - numpy
+    - openpyxl
+    - pandas
+    - pyyaml
+    - schedula
+    - scipy >=0.3.1
+    - xlrd >=1.0.0
+  run:
+    - click
+    - click-log
+    - numpy
+    - openpyxl
+    - pandas
+    - pyyaml
+    - schedula
+    - scipy >=0.3.1
+    - xlrd >=1.0.0
+
+test:
+  source_files:
+    - test/
+    # `test_setup.py` not working :-()
+    - setup.py
+    - README.rst
+  imports:
+    - syncing
+  commands:
+    - syncing --help
+    - syncing --version
+    - pytest test --ignore test/test_setup.py
+  requires:
+    - pytest
+    - ddt
+    - beautifulsoup4
+    - python-graphviz
+    - lxml
+    - matplotlib
+    - regex
+    - sphinx
+    - sphinx-click
+    - sphinx_rtd_theme
+    - sphinxcontrib-restbuilder
+
+about:
+  home: https://github.com/vinci1it2000/syncing
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE.txt
+  summary: Synchronise and re-sample time series
+  doc_url:
+  dev_url:
+
+extra:
+  recipe-maintainers:
+    - ankostis
