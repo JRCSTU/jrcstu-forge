@@ -8,7 +8,7 @@ package:
 source:
   path: ../../../../co2mpas.git
 build:
-  number: 0
+  number: 1
   noarch: python
   entry_points:
     - {{ name }} = {{ name }}.cli:cli
