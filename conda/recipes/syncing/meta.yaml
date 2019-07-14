@@ -10,9 +10,11 @@ source:
 
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
+  entry_points:
+    - {{ name }} = {{ name }}.cli:cli
 
 requirements:
   host:
