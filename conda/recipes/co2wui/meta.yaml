@@ -1,86 +1,67 @@
-{% set name = "co2gui" %}
-{% set version = "3.0.0" %}
+{% set name = "co2wui" %}
+{% set version = "0.0.1.dev2" %}
 
 package:
   name: "{{ name|lower }}"
   version: "{{ version }}"
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: f79b99ed5977e3b11677260ac1a2e20d942a671745977097b496e56a09cff211
-  patches:
-    - 0001-tkNoWinColors.patch
-    - 0002-noIdlelibTooltip.patch
+  path: ../../../../co2wui.git
 
 build:
-  number: 1
+  number: 0
   noarch: python
   entry_points:
-    - co2gui = co2gui.__main__:main
+    - {{ name }} = {{ name }}.app:cli
 
 requirements:
   host:
     - python >=3.5
-    - boltons
-    - co2sim
-    - co2dice
-    # [io] & schedula[plot] optional deps
-    - boltons
-    - contextvars             # for co2mpare, backported for PY<3.7
-    - cryptography
-    - dill !=0.2.7
-    - docopt
-    - openpyxl >=2.4.0
-    - pandalone >=0.2.0
-    - xlrd
-    - pip
-    - PyYAML >=3.12
-    - toolz
-    - tqdm
-    - xlsxwriter
-    - menuinst                # [win]
+    # conda stuff
+    - menuinst          # [win]
+    # app dependencies
+    - co2mpas
+    - co2mpas_dice
+    - Flask
+    - Flask-Babel
+    - requests
+    - schedula
+    - Werkzeug
+    - click
+    - ruamel.yaml
+    - syncing
   run:
     - python >=3.5
-    - boltons
-    - co2dice
-    - co2sim
-    - pillow
-    # [io] & schedula[plot] optional deps
-    - boltons
-    - contextvars             # for co2mpare, backported for PY<3.7
-    - cryptography
-    - dill !=0.2.7
-    - docopt
-    - openpyxl >=2.4.0
-    - pandalone >=0.2.0
-    - xlrd
-    - pip
-    - PyYAML >=3.12
-    - toolz
-    - tqdm
-    - xlsxwriter
+    - co2mpas
+    - co2mpas_dice
+    - Flask
+    - Flask-Babel
+    - requests
+    - schedula
+    - Werkzeug
+    - click
+    - ruamel.yaml
+    - syncing
 
 test:
   imports:
-    - co2gui
+    - co2wui.app
   commands:
-    - co2gui --help
+    #- co2wui --help  # NO, launched web-browser! 
+    #- pytest test    # all fail :-(
   requires:
-    - ddt
-    - flake8
-    - flake8-builtins
-    - flake8-mutable
     - pytest
-    - pytest-runner
+    - selenium
+    - geckodriver
 
 about:
   home: https://co2mpas.io/
   license: European Union Public Licence 1.1 (EUPL 1.1)
   license_family: OTHER
-  license_file: ../../../LICENSE.txt
-  summary: the tk-GUI for co2sim + co2dice subprojects of co2mpas
+  license_file: LICENSE.txt
+  summary: the WebUI for co2mpas
   doc_url: https://co2mpas.io/
-  dev_url: https://github.com/JRCSTU/CO2MPAS-TA
+  dev_url: https://github.com/JRCSTU/co2wui
 
 extra:
   recipe-maintainers:
