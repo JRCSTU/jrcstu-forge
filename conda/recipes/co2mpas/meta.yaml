@@ -8,7 +8,7 @@ package:
 source:
   path: ../../../../co2mpas.git
 build:
-  number: 1
+  number: 0
   noarch: python
   entry_points:
     - {{ name }} = {{ name }}.cli:cli
@@ -96,7 +96,7 @@ test:
     - co2mpas.core.model
     - co2mpas.core.model.physical
     - co2mpas.core.model.physical.clutch_tc
-    - co2mpas.core.model.physical.driver
+    #- co2mpas.core.model.physical.driver
     - co2mpas.core.model.physical.engine
     - co2mpas.core.model.physical.gear_box
     - co2mpas.core.model.physical.wheels
