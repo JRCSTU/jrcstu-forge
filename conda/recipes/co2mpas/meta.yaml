@@ -1,121 +1,131 @@
-{% set name = "co2sim" %}
-{% set version = "3.0.0" %}
+{% set name = "co2mpas" %}
+{% set version = "4.0.0.dev0" %}
 
 package:
   name: "{{ name|lower }}"
   version: "{{ version }}"
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 291f19f7776d98597b26028543a2b88fdc6bd79eea241813cc68cc944b2e9e19
-  patches:
-    # should be `py-xgboost`; `xgboost` exists in conda-forge only & not for Windows!
-    - 0001-xgboost-canonical.patch
-
+  path: ../../../../co2mpas.git
 build:
-  number: 1
+  number: 0
   noarch: python
   entry_points:
-    - co2mpas = co2mpas.__main__:main
-    - datasync = co2mpas.datasync:main
-  
+    - {{ name }} = {{ name }}.cli:cli
+
 requirements:
   host:
-    - colorama
-    - formulas >=0.0.10
-    - lmfit >=0.9.7
-    - numpy
-    - pandalone >=0.2.4
-    - pandas >=0.21.0
-    - pip
-    - polyversion >=0.2.2a0
     - python >=3.5
-    - regex
-    - schedula >=0.2.3
-    - schema
-    - scikit-learn
-    - setuptools
-    - setuptools-git >=0.3
-    - scipy
-    - wltp
-    - py-xgboost
-    - boltons
-    - contextvars             # for co2mpare, backported for PY<3.7
-    - cryptography
-    - dill !=0.2.7
-    - docopt
-    - openpyxl >=2.4.0
-    - pandalone >=0.2.0
-    - xlrd
-    - pip
-    - PyYAML >=3.12
-    - toolz
-    - tqdm
-    - xlsxwriter
     - menuinst                # [win]
-  run:
-    - colorama
-    - docopt
-    - formulas >=0.0.10
-    - lmfit >=0.9.7
+    # model deps
+    - lmfit>=0.9.7
     - numpy
-    - pandalone >=0.2.4
-    - pandas >=0.21.0
-    - polyversion >=0.2.2a0
-    - python >=3.5
-    - py-xgboost
+    - PyYAML
     - regex
-    - schedula >=0.2.3
+    - schedula>=0.3.2
     - schema
     - scikit-learn
     - scipy
-    - wltp
-    # [io] & schedula[plot] optional deps
-    - boltons
-    - contextvars             # for co2mpare, backported for PY<3.7
-    - cryptography
-    - dill !=0.2.7
-    - docopt
-    - openpyxl >=2.4.0
-    - pandalone >=0.2.0
-    - xlrd
-    - pip
-    - PyYAML >=3.12
-    - toolz
     - tqdm
-    - xlsxwriter
+    - wltp <1.0.0                 # new jsonschema & incompatible IOs in 1+
+    - py-xgboost
+    ## Extras: io, cli, sync, plot 
+    - beautifulsoup4
+    - click
+    - click-log
+    - dill
+    - docutils
+    - flask
+    - graphviz
+    - jinja2
+    - lxml
+    - matplotlib
+    - pandalone
+    #- pandalone >=0.2.4, <0.3   # new jsonschema in 0.3+
+    - pandas >=0.21.0
+    - pip
+    - Pygments
+    - sphinx
+    - sphinx-click
+    - sphinx_rtd_theme
+    - sphinxcontrib-restbuilder
+    - syncing
+    - xlrd
+  run:
+    - lmfit>=0.9.7
+    - numpy
+    - PyYAML
+    - regex
+    - schedula>=0.3.2
+    - schema
+    - scikit-learn
+    - scipy
+    - tqdm
+    - wltp <1.0.0                 # new jsonschema & incompatible IOs in 1+
+    - py-xgboost
+    ## Extras: io, cli, sync, plot 
+    - beautifulsoup4
+    - click
+    - click-log
+    - dill
+    - docutils
+    - flask
+    - graphviz
+    - jinja2
+    - lxml
+    - matplotlib
+    - pandalone
+    #- pandalone >=0.2.4, <0.3   # new jsonschema in 0.3+
+    - pandas >=0.21.0
+    - pip
+    - Pygments
+    - sphinx
+    - sphinx-click
+    - sphinx_rtd_theme
+    - sphinxcontrib-restbuilder
+    - syncing
+    - xlrd
 
 test:
   imports:
     - co2mpas
-    - co2mpas._vendor
-    - co2mpas.co2mparable
-    - co2mpas.io
-    - co2mpas.model
-    - co2mpas.model.physical
-    - co2mpas.model.physical.clutch_tc
-    - co2mpas.model.physical.cycle
-    - co2mpas.model.physical.electrics
-    - co2mpas.model.physical.engine
-    - co2mpas.model.physical.gear_box
-    - co2mpas.model.selector
+    - co2mpas.cli
+    - co2mpas.cli.sync
+    - co2mpas.core
+    - co2mpas.core.load
+    - co2mpas.core.model
+    - co2mpas.core.model.physical
+    - co2mpas.core.model.physical.clutch_tc
+    - co2mpas.core.model.physical.driver
+    - co2mpas.core.model.physical.engine
+    - co2mpas.core.model.physical.gear_box
+    - co2mpas.core.model.physical.wheels
+    - co2mpas.core.model.physical.defaults
+    - co2mpas.core.model.physical.electrics
+    - co2mpas.core.model.physical.final_drive
+    - co2mpas.core.model.physical.vehicle
+    - co2mpas.core.model.selector
     - co2mpas.utils
+  source_files:
+    - tests/
+    - setup.py
+    - README.rst
   commands:
     - co2mpas --help
-    - datasync --help
+    - co2mpas --version
+    - pytest tests --ignore tests/test_io.py --ignore tests/test_cli.py -v
   requires:
+    - pytest
     - ddt
     - flake8
     - flake8-builtins
     - flake8-mutable
-    - pytest
-    - pytest-runner
 
 about:
   home: https://co2mpas.io/
   license: European Union Public Licence 1.1 (EUPL 1.1)
   license_family: OTHER
-  license_file: ../../../LICENSE.txt
+  license_file: LICENSE
   summary: The Type-Approving vehicle simulator predicting NEDC CO2 emissions from WLTP
   doc_url: https://co2mpas.io/
   dev_url: https://github.com/JRCSTU/CO2MPAS-TA
