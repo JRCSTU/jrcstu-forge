@@ -87,6 +87,9 @@ requirements:
     - sphinxcontrib-restbuilder
     - syncing
     - xlrd
+    # extras
+    - xonsh
+    - xonda
 
 test:
   imports:

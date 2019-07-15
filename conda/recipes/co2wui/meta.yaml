@@ -47,12 +47,16 @@ test:
   imports:
     - co2wui.app
   commands:
-    #- co2wui --help  # NO, launched web-browser! 
-    #- pytest test    # all fail :-(
+    #- co2wui --help  # NO, launches web-browser!
+    #- pytest         # all fail :-(
   requires:
     - pytest
     - selenium
     - geckodriver
+app:
+  entry: co2wui run
+  icon:
+  summary: The WebApp to launch co2mpas
 
 about:
   home: https://co2mpas.io/
