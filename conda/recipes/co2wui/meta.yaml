@@ -1,5 +1,5 @@
 {% set name = "co2wui" %}
-{% set version = "0.0.1.dev2" %}
+{% set version = "0.0.1.dev4" %}
 
 package:
   name: "{{ name|lower }}"
@@ -31,9 +31,9 @@ requirements:
     - ruamel.yaml
     - syncing
   run:
-    - python >=3.5
+    - python >=3.6
     - co2mpas
-    - co2mpas_dice
+    #- co2mpas_dice  # allow non-TA installations
     - Flask
     - Flask-Babel
     - requests
