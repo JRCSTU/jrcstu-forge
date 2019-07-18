@@ -1,5 +1,5 @@
 {% set name = "pandalone" %}
-{% set version = "0.2.6" %}
+{% set version = "0.2.7" %}
 
 package:
   name: "{{ name|lower }}"
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 9a21111cf201201a6bb5a3cb966d25f532db608b362ba1c1ba7cef658f1132bf
+  sha256: 404a8a83bb416b02eb72ff66f67c8b734db6ebb22ae39cbf1d1feb3f036caf8e
 
 build:
   number: 0
