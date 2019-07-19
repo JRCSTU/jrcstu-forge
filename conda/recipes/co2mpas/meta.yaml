@@ -6,9 +6,10 @@ package:
   version: "{{ version }}"
 
 source:
-  path: ../../../../co2mpas.git
+  git_url: https://github.com/ankostis/co2mpas
+  git_rev: 530891e5
 build:
-  number: 0
+  number: 2
   noarch: python
   entry_points:
     - {{ name }} = {{ name }}.cli:cli
@@ -18,18 +19,19 @@ requirements:
     - python >=3.5
     - menuinst                # [win]
     # model deps
-    - lmfit>=0.9.7
+    - lmfit >=0.9.7
     - numpy
     - PyYAML
     - regex
-    - schedula>=0.3.2
+    - schedula >=0.3.2
     - schema
     - scikit-learn
     - scipy
     - tqdm
-    - wltp <1.0.0                 # new jsonschema & incompatible IOs in 1+
+    # new jsonschema & incompatible IOs in 1+
+    - wltp <1.0.0
     - py-xgboost
-    ## Extras: io, cli, sync, plot 
+    ## Extras: io, cli, sync, plot
     - beautifulsoup4
     - click
     - click-log
@@ -40,9 +42,10 @@ requirements:
     - graphviz
     - jinja2
     - lxml
+    - nose
     - matplotlib
-    - pandalone
-    #- pandalone >=0.2.4, <0.3   # new jsonschema in 0.3+
+    # new jsonschema in 0.3+
+    - pandalone >=0.2.4, <0.3
     - pandas >=0.21.0
     - pip
     - Pygments
@@ -53,18 +56,19 @@ requirements:
     - syncing
     - xlrd
   run:
-    - lmfit>=0.9.7
+    - lmfit >=0.9.7
     - numpy
     - PyYAML
     - regex
-    - schedula>=0.3.2
+    - schedula >=0.3.2
     - schema
     - scikit-learn
     - scipy
     - tqdm
-    - wltp <1.0.0                 # new jsonschema & incompatible IOs in 1+
+    # new jsonschema & incompatible IOs in 1+
+    - wltp <1.0.0
     - py-xgboost
-    ## Extras: io, cli, sync, plot 
+    ## Extras: io, cli, sync, plot
     - beautifulsoup4
     - click
     - click-log
@@ -76,8 +80,8 @@ requirements:
     - jinja2
     - lxml
     - matplotlib
-    - pandalone
-    #- pandalone >=0.2.4, <0.3   # new jsonschema in 0.3+
+    # new jsonschema in 0.3+
+    - pandalone >=0.2.4, <0.3
     - pandas >=0.21.0
     - pip
     - Pygments
