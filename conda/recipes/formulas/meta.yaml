@@ -12,9 +12,8 @@ source:
     - 0001-bs4-canonical.patch
 
 build:
-  #noarch: python
-  skip: True  # [py<35]
-  number: 0
+  noarch: python
+  number: 1
   script: "{{ PYTHON }} -m pip install . --no-deps -vv"
 
 requirements:
@@ -27,11 +26,11 @@ requirements:
     - lxml
     - multiprocess
     - nose
-    - {{ pin_compatible('numpy', lower_bound='1.15') }}
+    - numpy
     - openpyxl
     - pip
     - pygments
-    - python >=3.5
+    - python >=3
     - python-graphviz
     - regex
     - requests
@@ -40,8 +39,8 @@ requirements:
     - sphinx_rtd_theme
     - sphinxcontrib-restbuilder
   run:
-    - numpy >=1.15
-    - python >=3.5
+    - numpy
+    - python >=3
     - regex
     - schedula >=0.3.1
 
@@ -88,7 +87,8 @@ about:
   license_file: LICENSE.txt
   summary: 'Parse and compile Excel formulas and workbooks in python code.'
   doc_url: https://formulas.readthedocs.io
+  dev_url: https://github.com/vinci1it2000/formulas
 
 extra:
   recipe-maintainers:
-    - bollwyvl
+    - ankostis
