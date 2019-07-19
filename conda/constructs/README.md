@@ -2,10 +2,18 @@
 
 The specs are contained in `CO2MPAS/constructor.yaml` file.
 
+NOTE: As of 19 July 2019, it must run with latest conda & **pre-production "v3" constructor**.
+See https://github.com/conda/constructor/issues/257#issuecomment-511442170
+
+Run in WINDOWS:
+
 ```bash
-conda create -n cstor constructor=2.3.0
+conda create -y -n cstor
 conda activate cstor
-constructor ./co2sim --verbose
+git clone https://github.com/conda/constructor --branch v3
+pip install -e constructor
+constructor --version   # must be 3.0.0
+constructor ./CO2MPAS --conda-exe <conda-downloaded-from-the-link-above> 
 ```
 
 ## Tip:
