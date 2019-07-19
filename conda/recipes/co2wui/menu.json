@@ -3,7 +3,8 @@
     "menu_items":
         [
             {
-                "pywscript": "${PREFIX}/Lib/site-packages/co2wui/__main__.py",
+                "script": "${PREFIX}/Scripts/co2wui.exe",
+                "scriptarguments": ["run"],
                 "name": "co2mpas WebUI",
                 "icon": "${MENU_DIR}/co2wui.ico",
                 "desktop": true
