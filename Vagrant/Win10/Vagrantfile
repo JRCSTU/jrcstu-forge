@@ -185,6 +185,10 @@ Vagrant.configure("2") do |config|
       conda config --env --append channels bioconda
       conda config --env --prepend channels ankostis
 
+      conda activate
+      conda install -y conda-build conda-verify
+      conda deactivate
+
       # Not installin our projects (use `conda develop <git-cloned-dir>``):
       #   formulas pandalone schedula wltp
       # Installing also:
@@ -192,7 +196,7 @@ Vagrant.configure("2") do |config|
       #   - `xsonsh`: an amazing cross-platform chimairic shell (Bash + Python),
       #      see this talk: https://xon.sh/talks_and_articles.html#talks
       conda create -qy --name co2 \
-          pip anaconda-client constructor \
+          pip anaconda-client constructor ripgrep \
           xonsh xonda \
           numpy numpy-base py-xgboost pyyaml regex scikit-learn tqdm scipy pandas \
           schedula formulas pandalone wltp \
