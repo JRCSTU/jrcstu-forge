@@ -6,11 +6,10 @@ package:
   version: "{{ version }}"
 
 source:
-  path: ../../../../syncing.git
-
-
+  git_url: https://github.com/vinci1it2000/syncing
+  git_rev: 1a3c477
 build:
-  number: 1
+  number: 2
   noarch: python
   script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
   entry_points:
