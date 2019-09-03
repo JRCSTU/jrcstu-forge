@@ -7,7 +7,7 @@ Ensure that conda is latest, and that *base* env has `conda-build` & `conda-veri
 Create and activate a new development environment::
 
     # `ripgrep` suggested by conda-build warn for faster prefix-searches.
-    conda create -n co2dev ripgrep 
+    conda create -n co2dev build conda-build ripgrep 
     conda activate co2dev
 
 I recommend to use these conda-channels for your dev environment:
@@ -38,8 +38,9 @@ conda config --env --get channels
 ```
 
 TIP:
-    You may assign these channels permanently to your user's configurations, and 
-    not having to redo them on each new environment, by removing the `--env` option.
+    These channels are assigned permanently to your user's configurations, and 
+    yuo don't have to redo them on each new environment.
+    Add the `--env` option if you want to configure the activated venv only.
 
 Then build all recipes, pining a recent enough numpy (untested for all but the `co2sim` package):
 
