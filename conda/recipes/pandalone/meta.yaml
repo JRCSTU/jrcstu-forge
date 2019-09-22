@@ -1,13 +1,14 @@
 {% set name = "pandalone" %}
-{% set version = "0.2.7" %}
+{% set version = "0.2.8" %}
 
 package:
   name: "{{ name|lower }}"
   version: "{{ version }}"
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 404a8a83bb416b02eb72ff66f67c8b734db6ebb22ae39cbf1d1feb3f036caf8e
+  # url: https://github.com/pandalone/pandalone/archive/4f4d6416534640b1921fd2da45e82e938e45f2f9.tar.gz#egg=pandalone
+  # sha256: 832dbd4095a985b2ae2619f07b2793aeecaaa18228dcc4d2c1c94b1357523e90
+  path: ../../../../pandalone-0.2.8
 
 build:
   number: 0
@@ -30,7 +31,7 @@ requirements:
   run:
     - asteval >=0.9.7
     - future >=0.15.0
-    - jsonschema >=2.5, <3
+    - jsonschema >=2.5, <=2.6
     - numpy
     - python
     - toolz
