@@ -1,30 +1,34 @@
 ## Based on https://medium.com/@Amet13/building-a-cross-platform-python-installer-using-conda-constructor-f91b70d393
 
 name: CO2MPAS
-version: 4.0.0.dev0
+version: 4.0.0.dev1
 company: JRC-STU
 
 initialize_by_default: false
 register_python_default: false
 
 channels:
+  - https://conda.anaconda.org/stefanocorsi
+  - file:///C:/miniconda3/envs/condaconst2/conda-bld
   - https://conda.anaconda.org/ankostis
-  - http://repo.anaconda.com/pkgs/main/
-  - https://conda.anaconda.org/conda-forge
   - https://conda.anaconda.org/bioconda
-  - http://repo.anaconda.com/pkgs/msys2
-  - http://repo.anaconda.com/pkgs/free/
+  - https://conda.anaconda.org/conda-forge
+  - https://conda.anaconda.org/anaconda
+  - https://repo.anaconda.com/pkgs/main
+  - https://repo.anaconda.com/pkgs/r
+  - https://repo.anaconda.com/pkgs/msys2
 specs:
-  #- python 3.7.*
-  - python
+  - python 3.7.*
   - menuinst            [win]
   - console_shortcut    [win]
-  - co2mpas       4.0.0.dev0
-  - co2mpas_dice  4.0.0.dev0
-  - co2wui        0.0.1.dev5
-  - syncing       1.0.0
+  - co2mpas       4.0.0
+  - co2mpas_dice  3.2.0.dev0
+  - co2wui        0.0.1.dev9
+  - syncing       1.0.4
   - multiprocess
   - xlsxwriter
+  - flask_session
+  - statsmodels
 
 ## This key not working(?) with constructor-v3 
 # see https://github.com/conda/constructor/issues/86#issuecomment-513047073
@@ -32,8 +36,8 @@ specs:
 #  - qt
 #  - pyqt
 menu_packages:
-  #- co2mpas
-  #- co2wui
+  - co2mpas
+  - co2wui
 
 license_file: LICENSE.txt
 welcome_image: CO2MPAS_GUI.png      [win] 
