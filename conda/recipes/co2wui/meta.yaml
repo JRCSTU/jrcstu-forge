@@ -1,14 +1,12 @@
 {% set name = "co2wui" %}
-{% set version = "0.0.1.dev5" %}
+{% set version = "0.0.1.dev9" %}
 
 package:
   name: "{{ name|lower }}"
   version: "{{ version }}"
 
 source:
-  # NOTE: Developer has to set this symlink!
-  git_url: https://github.com/ankostis/co2wui
-  git_rev: a55e340
+  path: ../../../../co2wui.git
   
 build:
   number: 0
