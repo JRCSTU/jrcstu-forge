@@ -1,5 +1,5 @@
 {% set name = "co2mpas_dice" %}
-{% set version = "4.0.0.dev0" %}
+{% set version = "3.2.0" %}
 
 package:
   name: "{{ name|lower }}"
@@ -12,6 +12,8 @@ build:
   number: 0
   noarch: python
   script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
+  entry_points:
+    - {{ name }} = {{ name }}.__main__:cli
 
 requirements:
   host:
