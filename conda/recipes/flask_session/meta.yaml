@@ -1,0 +1,53 @@
+{% set name = "flask_session" %}
+{% set version = "0.3.1" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: https://pypi.io/packages/source/f/flask_session/Flask-Session-{{ version }}.tar.gz
+  sha256: a31c27e0c3287f00c825b3d9625aba585f4df4cccedb1e7dd5a69a215881a731
+
+build:
+  number: 1
+  noarch: python
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
+  entry_points:
+    - {{ name }} = {{ name }}.cli:cli
+
+requirements:
+  host:
+    - python
+    - Flask
+  run:
+    - Flask
+
+test:
+  source_files:
+    # - test/
+    # `test_setup.py` not working :-()
+    - test_session.py
+    - setup.py
+  imports:
+    - {{ name }}
+  commands:
+    - {{ name }} --help
+    - {{ name }} --version
+    - pytest test --ignore test_session.py
+  requires:
+    - pytest
+    - Flask
+
+about:
+  home: https://github.com/fengsp/flask-session/
+  license: Other
+  license_family: Other
+  license_file: LICENSE
+  summary: Server side session extension for Flask
+  doc_url:
+  dev_url:
+
+extra:
+  recipe-maintainers:
+    - stefanocorsi
