@@ -6,8 +6,8 @@ package:
   version: "{{ version }}"
 
 source:
-  git_url: https://github.com/vinci1it2000/syncing
-  git_rev: 7a37e62c035d335694af580e2b6a9781146d1c5f
+   path: ../../../../syncing.git
+
 build:
   number: 2
   noarch: python
