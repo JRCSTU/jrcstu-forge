@@ -1,13 +1,13 @@
 {% set name = "co2mpas" %}
-{% set version = "4.0.0.dev0" %}
+{% set version = "4.0.0" %}
 
 package:
   name: "{{ name|lower }}"
   version: "{{ version }}"
 
 source:
-  git_url: https://github.com/ankostis/co2mpas
-  git_rev: 530891e5
+  path: ../../../../co2mpas.git
+
 build:
   number: 2
   noarch: python
