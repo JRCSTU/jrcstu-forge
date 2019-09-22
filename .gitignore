@@ -6,3 +6,8 @@
 !.vscode/launch.json
 !.vscode/extensions.json
 
+# Conda constructor code cloned from Github
+/conda/constructor
+
+# Flask session files directory
+/conda/flask_session
