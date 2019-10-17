@@ -42,4 +42,4 @@ menu_packages:
 license_file: LICENSE.txt
 welcome_image: CO2MPAS_GUI.png      [win] 
 header_image: CO2MPAS_banner.png    [win]
-icon_image: CO2MPAS_logo.png        [win]
+icon_image: icon-32.ico        [win]
