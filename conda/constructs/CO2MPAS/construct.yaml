@@ -1,7 +1,7 @@
 ## Based on https://medium.com/@Amet13/building-a-cross-platform-python-installer-using-conda-constructor-f91b70d393
 
 name: CO2MPAS
-version: 4.0.1
+version: 4.1.3
 company: JRC-STU
 
 initialize_by_default: false
@@ -21,9 +21,9 @@ specs:
   - python 3.7.*
   - menuinst            [win]
   - console_shortcut    [win]
-  - co2mpas       4.0.1
-  - co2mpas_dice  3.2.0
-  - co2wui        0.0.2
+  - co2mpas       4.1.3
+  - co2mpas_dice  4.0.0
+  - co2wui        0.0.6
   - syncing       1.0.4
   - multiprocess
   - xlsxwriter
