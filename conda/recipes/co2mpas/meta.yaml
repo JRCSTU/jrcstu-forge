@@ -75,7 +75,7 @@ requirements:
     - dill
     - docutils
     - flask
-    - python-graphviz
+    - python-graphviz==0.8.4
     - graphviz
     - jinja2
     - lxml
