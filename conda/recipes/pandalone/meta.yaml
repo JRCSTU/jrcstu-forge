@@ -6,34 +6,33 @@ package:
   version: "{{ version }}"
 
 source:
-  # url: https://github.com/pandalone/pandalone/archive/4f4d6416534640b1921fd2da45e82e938e45f2f9.tar.gz#egg=pandalone
-  # sha256: 832dbd4095a985b2ae2619f07b2793aeecaaa18228dcc4d2c1c94b1357523e90
-  path: ../../../../pandalone-0.2.8
+  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
+  sha256: "2b62c98236f70d09c109768e22985005f5b0d1d69017fa40401092f9a3079927"
 
 build:
   number: 0
   noarch: python
-  entry_points:
-    - pndl = pandalone.__main__:main
   script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv"
 
 requirements:
-  build:
-    - setuptools
   host:
     - asteval >=0.9.10
     - future >=0.15.0
     - jsonschema >=2.5, <3
+    - mock;   # [ py == 27 ]
     - numpy
     - pip
-    - python >=3.3
+    - python
+    - setuptools
     - toolz
   run:
     - asteval >=0.9.10
     - future >=0.15.0
-    - jsonschema >=2.5, <=2.6
+    - jsonschema >=2.5, <3
+    - mock;   # [ py == 27 ]
     - numpy
-    - python >=3.3
+    - python
+    - setuptools
     - toolz
 
 test:
@@ -43,8 +42,6 @@ test:
     - pandalone.xleash.io
   commands:
     - nosetests
-  # source_files:
-  #   - tests/*
   requires:
     - coverage
     - coveralls
