@@ -10,4 +10,4 @@
 /conda/constructor
 
 # Flask session files directory
-/conda/flask_session
+.vagrant/
