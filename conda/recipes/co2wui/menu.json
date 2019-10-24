@@ -5,7 +5,7 @@
             {
                 "script": "${PREFIX}/Scripts/co2wui.exe",
                 "scriptarguments": ["run"],
-                "name": "co2mpas WebUI",
+                "name": "Co2mpas WebUI",
                 "icon": "${MENU_DIR}/co2wui.ico",
                 "desktop": true
             }

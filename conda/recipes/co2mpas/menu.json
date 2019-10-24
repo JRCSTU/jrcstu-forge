@@ -5,14 +5,14 @@
             {
                 "script": "cmd.exe",
                 "scriptarguments": ["/K", "${PYTHON_SCRIPTS}/activate.bat ${PREFIX}"],
-                "name": "co2mpas console",
+                "name": "Co2mpas console",
                 "workdir": "${USERPROFILE}",
                 "icon": "${MENU_DIR}/co2mpas.ico",
                 "desktop": true
             },
             {
                 "webbrowser": "https://co2mpas.io",
-                "name": "co2mpas documentation",
+                "name": "Co2mpas documentation",
                 "icon": "${MENU_DIR}/co2mpas.ico"
             }
         ]
