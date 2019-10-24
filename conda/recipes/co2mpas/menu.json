@@ -11,6 +11,12 @@
                 "desktop": true
             },
             {
+                "script": "cmd.exe",
+                "scriptarguments": ["/C", "start", "${USERPROFILE}/.co2mpas"],
+                "name": "Co2mpas user folder",
+                "icon": "${MENU_DIR}/co2mpas.ico"
+            },
+            {
                 "webbrowser": "https://co2mpas.io",
                 "name": "Co2mpas documentation",
                 "icon": "${MENU_DIR}/co2mpas.ico"
