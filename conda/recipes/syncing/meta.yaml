@@ -6,10 +6,11 @@ package:
   version: "{{ version }}"
 
 source:
-   path: ../../../../syncing.git
+  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
+  sha256: "74f3750939943576fead63efdfae1574e7dbb73a2caf329846e8590ffdc832f5"
 
 build:
-  number: 2
+  number: 3
   noarch: python
   script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
   entry_points:
@@ -57,13 +58,14 @@ test:
     - setup.py
     - README.rst
   imports:
-    - {{ name }}
+    - syncing
+    - syncing.model
+    - syncing.rw
   commands:
     - {{ name }} --help
     - {{ name }} --version
     - pytest test --ignore test/test_setup.py
   requires:
-    - pytest
     - ddt
     - beautifulsoup4
     - lxml
@@ -77,14 +79,15 @@ test:
     - sphinxcontrib-restbuilder
 
 about:
-  home: https://github.com/vinci1it2000/syncing
-  license: MIT
-  license_family: MIT
-  license_file: LICENSE.txt
-  summary: Synchronise and re-sample time series
-  doc_url:
-  dev_url:
+  home: "https://github.com/vinci1it2000/syncing"
+  license: "European Union Public Licence 1.1 (EUPL 1.1)"
+  license_family: "OTHER"
+  license_file: ../../../LICENSE.txt
+  summary: "Time series synchronization and resample library."
+  doc_url: ""
+  dev_url: "https://github.com/vinci1it2000/syncing"
 
 extra:
   recipe-maintainers:
+    - stefanocorsi
     - ankostis
