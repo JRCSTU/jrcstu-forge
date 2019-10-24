@@ -10,14 +10,6 @@
                 "icon": "${MENU_DIR}/co2mpas.ico",
                 "desktop": true
             },
-						{
-                "script": "explorer.exe",
-                "scriptarguments": ["/K", "${PYTHON_SCRIPTS}/activate.bat ${PREFIX}"],
-                "name": "co2mpas console",
-                "workdir": "${USERPROFILE}",
-                "icon": "${MENU_DIR}/co2mpas.ico",
-                "desktop": true
-            },
             {
                 "webbrowser": "https://co2mpas.io",
                 "name": "co2mpas documentation",
