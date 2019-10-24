@@ -1,5 +1,5 @@
 {
-    "menu_name": "CO2MPAS-4.1.3",
+    "menu_name": "CO2MPAS-4.1.5",
     "menu_items":
         [
             {
@@ -10,12 +10,13 @@
                 "icon": "${MENU_DIR}/co2mpas.ico",
                 "desktop": true
             },
-            {
-                "script": "${PREFIX}/python.exe",
-                "scriptarguments": ["-m", "xonsh"],
-                "name": "co2mpas console (xonsh)",
+						{
+                "script": "explorer.exe",
+                "scriptarguments": ["/K", "${PYTHON_SCRIPTS}/activate.bat ${PREFIX}"],
+                "name": "co2mpas console",
                 "workdir": "${USERPROFILE}",
-                "icon": "${MENU_DIR}/co2mpas.ico"
+                "icon": "${MENU_DIR}/co2mpas.ico",
+                "desktop": true
             },
             {
                 "webbrowser": "https://co2mpas.io",

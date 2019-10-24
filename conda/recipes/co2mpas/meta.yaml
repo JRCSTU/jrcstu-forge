@@ -1,5 +1,5 @@
 {% set name = "co2mpas" %}
-{% set version = "4.1.3" %}
+{% set version = "4.1.5" %}
 
 package:
   name: "{{ name|lower }}"
@@ -30,7 +30,7 @@ requirements:
     - tqdm
     # new jsonschema & incompatible IOs in 1+
     - wltp <1.0.0
-    - py-xgboost
+    - py-xgboost==0.90
     ## Extras: io, cli, sync, plot
     - beautifulsoup4
     - click
@@ -42,8 +42,9 @@ requirements:
     - graphviz
     - jinja2
     - lxml
+    - networkx==2.3
     - nose
-    - matplotlib
+    - matplotlib    
     # new jsonschema in 0.3+
     - pandalone >=0.2.4, <0.3
     - pandas >=0.21.0
@@ -67,7 +68,7 @@ requirements:
     - tqdm
     # new jsonschema & incompatible IOs in 1+
     - wltp <1.0.0
-    - py-xgboost
+    - py-xgboost==0.90
     ## Extras: io, cli, sync, plot
     - beautifulsoup4
     - click
@@ -79,6 +80,7 @@ requirements:
     - graphviz
     - jinja2
     - lxml
+    - networkx==2.3    
     - matplotlib
     # new jsonschema in 0.3+
     - pandalone >=0.2.4, <0.3
