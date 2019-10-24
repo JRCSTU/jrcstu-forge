@@ -30,7 +30,7 @@ requirements:
     - tqdm
     # new jsonschema & incompatible IOs in 1+
     - wltp <1.0.0
-    - py-xgboost==0.90
+    - py-xgboost >0.82  # due to reg:squarederror
     ## Extras: io, cli, sync, plot
     - beautifulsoup4
     - click
@@ -68,7 +68,7 @@ requirements:
     - tqdm
     # new jsonschema & incompatible IOs in 1+
     - wltp <1.0.0
-    - py-xgboost==0.90
+    - py-xgboost >0.82  # due to reg:squarederror
     ## Extras: io, cli, sync, plot
     - beautifulsoup4
     - click
