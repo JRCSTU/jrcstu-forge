@@ -9,7 +9,6 @@ register_python_default: false
 
 channels:
   - https://conda.anaconda.org/stefanocorsi
-  - file:///C:/miniconda3/envs/condaconst2/conda-bld
   - https://conda.anaconda.org/ankostis
   - https://conda.anaconda.org/bioconda
   - https://conda.anaconda.org/conda-forge
