@@ -6,8 +6,9 @@ package:
   version: "{{ version }}"
 
 source:
-  path: ../../../../co2wui.git
-  
+  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
+  sha256: "05d43b6e7fbccce480981002c084e0efe8a687f5e8d56adae8cc7983798b1b53"
+
 build:
   number: 0
   noarch: python
@@ -16,57 +17,53 @@ build:
 
 requirements:
   host:
-    - python >=3.5
-    # conda stuff
-    - menuinst          # [win]
-    # app dependencies
+    - click
     - co2mpas
     - co2mpas_dice
-    - Flask
-    - Flask-Babel
-    - requests
-    - schedula
-    - Werkzeug
-    - click
-    - ruamel.yaml
-    - syncing
-  run:
+    - flask
+    - flask-babel
+    - flask_session
+    - menuinst     # [win]
+    - pip
     - python >=3.6
-    - co2mpas
-    #- co2mpas_dice  # allow non-TA installations
-    - Flask
-    - Flask-Babel
     - requests
-    - schedula
-    - Werkzeug
-    - click
     - ruamel.yaml
+    - schedula
     - syncing
+    - urllib3
+    - werkzeug
+  run:
+    - click
+    - co2mpas
+    - co2mpas_dice
+    - flask
+    - flask-babel
+    - flask_session
+    - menuinst     # [win]
+    - python >=3.6
+    - requests
+    - ruamel.yaml
+    - schedula
+    - syncing
+    - urllib3
+    - werkzeug
 
 test:
   imports:
-    - co2wui.app
+    - co2wui
+    - co2wui.i18n
   commands:
-    #- co2wui --help  # NO, launches web-browser!
-    #- pytest         # all fail :-(
-  requires:
-    - pytest
-    - selenium
-    - geckodriver
-#app:
-#  entry: co2wui run
-#  icon:
-#  summary: The WebApp to launch co2mpas
+    - co2wui --help
 
 about:
-  home: https://co2mpas.readthedocs.org/
-  license: European Union Public Licence 1.1 (EUPL 1.1)
-  license_family: OTHER
-  license_file: LICENSE.txt
-  summary: the WebUI for co2mpas
+  home: "https://github.com/JRCSTU/co2wui"
+  license: "European Union Public Licence 1.1 (EUPL 1.1)"
+  license_family: "OTHER"
+  license_file: ""
+  summary: "WebUI for co2mpas"
   doc_url: https://co2mpas.readthedocs.org/
-  dev_url: https://github.com/JRCSTU/co2wui
+  dev_url: "https://github.com/JRCSTU/co2wui"
 
 extra:
   recipe-maintainers:
-    - ankostis
+    - your-github-id-here
