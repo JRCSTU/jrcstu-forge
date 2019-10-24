@@ -28,7 +28,6 @@ specs:
   - multiprocess
   - xlsxwriter
   - flask_session
-  - statsmodels
   - git
 
 ## This key not working(?) with constructor-v3 

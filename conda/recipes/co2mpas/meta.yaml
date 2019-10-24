@@ -29,6 +29,7 @@ requirements:
     - schema
     - scikit-learn
     - scipy
+    - statsmodels
     - tqdm
     # new jsonschema & incompatible IOs in 1+
     - wltp <1.0.0
@@ -67,6 +68,7 @@ requirements:
     - schema
     - scikit-learn
     - scipy
+    - statsmodels
     - tqdm
     # new jsonschema & incompatible IOs in 1+
     - wltp <1.0.0
