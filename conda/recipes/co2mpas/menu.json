@@ -17,7 +17,7 @@
                 "icon": "${MENU_DIR}/co2mpas.ico"
             },
             {
-                "webbrowser": "https://co2mpas.io",
+                "webbrowser": "https://co2mpas.readthedocs.org",
                 "name": "Co2mpas documentation",
                 "icon": "${MENU_DIR}/co2mpas.ico"
             }

@@ -59,12 +59,12 @@ test:
     - {{ name }} --version
 
 about:
-  home: https://co2mpas.io/
+  home: https://co2mpas.readthedocs.org/
   license: European Union Public Licence 1.1 (EUPL 1.1)
   license_family: OTHER
   license_file: ../../../LICENSE.txt
   summary: Client code for packaging co2mpas results
-  doc_url: https://co2mpas.io/
+  doc_url: https://co2mpas.readthedocs.org/
   dev_url: https://github.com/JRCSTU/CO2MPAS-TA
 
 extra:
