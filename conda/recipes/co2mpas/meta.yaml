@@ -1,5 +1,5 @@
 {% set name = "co2mpas" %}
-{% set version = "4.1.7" %}
+{% set version = "4.1.8" %}
 
 package:
   name: "{{ name|lower }}"
@@ -7,10 +7,10 @@ package:
 
 source:
   url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
-  sha256: "ae979fe7039058438836a1612eb792a529760b2904acd8c6cf61acba49b5926a"
+  sha256: "39e9bc769b0edba6f9eb902aa7be1850f4ec282e7005fb89f5ba15725115344e"
 
 build:
-  number: 0
+  number: 1
   noarch: python
   entry_points:
     - {{ name }} = {{ name }}.cli:cli
@@ -127,14 +127,9 @@ test:
     - co2mpas.core.model.selector
     - co2mpas.core.model.selector.models
     - co2mpas.core.write
-  source_files:
-    - tests/
-    - setup.py
-    - README.rst
   commands:
     - co2mpas --help
     - co2mpas --version
-    - pytest tests --ignore tests/test_io.py --ignore tests/test_cli.py -v
   requires:
     - ddt
     - nose >=1.0
