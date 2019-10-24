@@ -19,6 +19,7 @@ channels:
   - https://repo.anaconda.com/pkgs/msys2
 specs:
   - python 3.7.*
+  - conda
   - menuinst            [win]
   - console_shortcut    [win]
   - co2mpas       4.1.8
