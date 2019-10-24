@@ -6,24 +6,22 @@ package:
   version: "{{ version }}"
 
 source:
-  #url: https://files.pythonhosted.org/packages/2c/f0/c3472730e6f2adadf0cde54328338eea5853b83e2ea37385e39fdf153953/co2mpas-4.1.7.tar.gz
-  #sha256: ae979fe7039058438836a1612eb792a529760b2904acd8c6cf61acba49b5926a
-  path: ../../../../co2mpas.git
+  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
+  sha256: "ae979fe7039058438836a1612eb792a529760b2904acd8c6cf61acba49b5926a"
 
 build:
-  number: 2
+  number: 0
   noarch: python
   entry_points:
     - {{ name }} = {{ name }}.cli:cli
 
 requirements:
   host:
-    - python >=3.5
-    - menuinst                # [win]
-    # model deps
+    - python >=3.6
     - lmfit >=0.9.7
     - numpy
-    - PyYAML
+    - pip
+    - pyyaml
     - regex
     - schedula >=0.3.2
     - schema
@@ -41,10 +39,13 @@ requirements:
     - dill
     - docutils
     - flask
-    - python-graphviz==0.8.4
+    # Fix for conda graphviz; JRCSTU/co2wui#146
+    - python-graphviz==0.8.4  # [win]
+    - python-graphviz         # [not win]
     - graphviz
     - jinja2
     - lxml
+    - menuinst                # [win]
     - networkx==2.3
     - nose
     - matplotlib    
@@ -62,7 +63,8 @@ requirements:
   run:
     - lmfit >=0.9.7
     - numpy
-    - PyYAML
+    - python >=3.6
+    - pyyaml
     - regex
     - schedula >=0.3.2
     - schema
@@ -80,12 +82,15 @@ requirements:
     - dill
     - docutils
     - flask
-    - python-graphviz==0.8.4
+    # Fix for conda graphviz; JRCSTU/co2wui#146
+    - python-graphviz==0.8.4  # [win]
+    - python-graphviz         # [not win]
     - graphviz
     - jinja2
     - lxml
     - networkx==2.3    
     - matplotlib
+    - menuinst                # [win]
     # new jsonschema in 0.3+
     - pandalone >=0.2.4, <0.3
     - pandas >=0.21.0
@@ -105,22 +110,26 @@ test:
   imports:
     - co2mpas
     - co2mpas.cli
-    - co2mpas.cli.sync
     - co2mpas.core
     - co2mpas.core.load
+    - co2mpas.core.load.validate
     - co2mpas.core.model
     - co2mpas.core.model.physical
     - co2mpas.core.model.physical.clutch_tc
-    #- co2mpas.core.model.physical.driver
+    - co2mpas.core.model.physical.control
+    - co2mpas.core.model.physical.cycle
+    - co2mpas.core.model.physical.cycle.WLTP
+    - co2mpas.core.model.physical.electrics
+    - co2mpas.core.model.physical.electrics.batteries
+    - co2mpas.core.model.physical.electrics.batteries.service
+    - co2mpas.core.model.physical.electrics.motors
+    - co2mpas.core.model.physical.electrics.motors.alternator
     - co2mpas.core.model.physical.engine
     - co2mpas.core.model.physical.gear_box
-    - co2mpas.core.model.physical.wheels
-    - co2mpas.core.model.physical.defaults
-    - co2mpas.core.model.physical.electrics
-    - co2mpas.core.model.physical.final_drive
-    - co2mpas.core.model.physical.vehicle
+    - co2mpas.core.model.physical.gear_box.at_gear
     - co2mpas.core.model.selector
-    - co2mpas.utils
+    - co2mpas.core.model.selector.models
+    - co2mpas.core.write
   source_files:
     - tests/
     - setup.py
@@ -130,21 +139,20 @@ test:
     - co2mpas --version
     - pytest tests --ignore tests/test_io.py --ignore tests/test_cli.py -v
   requires:
-    - pytest
     - ddt
-    - flake8
-    - flake8-builtins
-    - flake8-mutable
+    - nose >=1.0
+    - pytest
 
 about:
-  home: https://co2mpas.io/
-  license: European Union Public Licence 1.1 (EUPL 1.1)
-  license_family: OTHER
+  home: "https://github.com/JRCTSU/CO2MPAS-TA"
+  license: "European Union Public Licence 1.1 (EUPL 1.1)"
+  license_family: "OTHER"
   license_file: LICENSE
-  summary: The Type-Approving vehicle simulator predicting NEDC CO2 emissions from WLTP
-  doc_url: https://co2mpas.io/
+  summary: "The Type-Approving vehicle simulator predicting NEDC CO2 emissions from WLTP"
+  doc_url: https://co2mpas.readthedocs.org/
   dev_url: https://github.com/JRCSTU/CO2MPAS-TA
 
 extra:
   recipe-maintainers:
+    - stefanocorsi
     - ankostis
