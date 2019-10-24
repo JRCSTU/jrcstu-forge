@@ -21,7 +21,7 @@ requirements:
   build:
     - setuptools
   host:
-    - asteval >=0.9.7
+    - asteval >=0.9.10
     - future >=0.15.0
     - jsonschema >=2.5, <3
     - numpy
@@ -29,11 +29,11 @@ requirements:
     - python >=3.3
     - toolz
   run:
-    - asteval >=0.9.7
+    - asteval >=0.9.10
     - future >=0.15.0
     - jsonschema >=2.5, <=2.6
     - numpy
-    - python
+    - python >=3.3
     - toolz
 
 test:
