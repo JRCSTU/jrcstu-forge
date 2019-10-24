@@ -70,6 +70,7 @@ test:
     - beautifulsoup4
     - lxml
     - matplotlib
+    - pytest
     - python-graphviz
     - nose
     - regex
