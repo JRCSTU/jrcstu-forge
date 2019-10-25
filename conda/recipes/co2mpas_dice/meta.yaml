@@ -6,10 +6,11 @@ package:
   version: "{{ version }}"
 
 source:
-  path: ../../../../DICE.git/back-end
+  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
+  sha256: "b88da1e0e493742014c9f8829e87a9b22570b74cff54e0eeb33a786439bebc05"
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
   entry_points:
@@ -17,10 +18,10 @@ build:
 
 requirements:
   host:
-    - python
     - cryptography
     - lmfit
     - numpy
+    - python
     - pyyaml
     - schedula
     - scipy
@@ -46,17 +47,15 @@ test:
     - tabulate
     - werkzeug
   imports:
-    - {{ name }}.co2mpas
-    - {{ name }}.co2mpas.declaration
-    - {{ name }}.co2mpas.verify
-    - {{ name }}.validate
-    - {{ name }}.crypto
+    - {{ name }}.declaration
     - {{ name }}.err
-    - {{ name }}.config
+    - {{ name }}.crypto
     - {{ name }}.tar
+    - {{ name }}.verify
   commands:
-    - {{ name }} --help
-    - {{ name }} --version
+    ## Broken without the `server` part.
+    #- {{ name }} --help
+    #- {{ name }} --version
 
 about:
   home: https://co2mpas.readthedocs.org/
@@ -65,7 +64,7 @@ about:
   license_file: ../../../LICENSE.txt
   summary: Client code for packaging co2mpas results
   doc_url: https://co2mpas.readthedocs.org/
-  dev_url: https://github.com/JRCSTU/CO2MPAS-TA
+  dev_url: "https://github.com/JRCSTU/DICE"
 
 extra:
   recipe-maintainers:
