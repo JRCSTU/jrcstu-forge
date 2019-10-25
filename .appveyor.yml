@@ -1,0 +1,18 @@
+clone_depth: 1
+environment:
+  MINICONDA: C:\Miniconda36-x64
+  MSYS2: C:\msys64
+init:
+  - "set PATH=%MINICONDA%;%MINICONDA%\\Scripts;%MINICONDA%\\Library\\bin;%PATH%;%MSYS2%"
+
+install:
+  - conda --version
+  - conda install constructor -y
+
+build_script:
+  - constructor.exe conda/constructs/CO2MPAS/
+  - sh: "[ -f ${CO2MPAS_NAME}-jrcstu-Windows-x86_64.exe ]"
+
+artifacts:
+  - path: "*.exe"
+    name: Co2mpasExe
