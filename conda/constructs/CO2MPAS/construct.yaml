@@ -29,12 +29,14 @@ specs:
   - xlsxwriter
   - flask_session
   - git
+  - jsonschema    2.6.0
 
-## This key not working(?) with constructor-v3 
-# see https://github.com/conda/constructor/issues/86#issuecomment-513047073
+## Failing on intallation time when downlloading them from remote,
+#  bc they are needed somehwre...
 #exclude:
 #  - qt
 #  - pyqt
+
 menu_packages:
   - co2mpas
   - co2wui
