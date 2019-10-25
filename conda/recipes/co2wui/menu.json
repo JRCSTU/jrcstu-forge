@@ -10,7 +10,7 @@
                 "desktop": true
             },
             {
-                "script": "${PREFIX}/Uninstall-co2mpas-4.1.7.exe",
+                "script": "${PREFIX}/Uninstall-co2mpas-4.1.8.exe",
                 "name": "Unistall Co2mpas",
                 "icon": "${MENU_DIR}/co2wui.ico"
             }

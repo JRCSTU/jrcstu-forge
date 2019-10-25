@@ -10,7 +10,7 @@ source:
   sha256: "05d43b6e7fbccce480981002c084e0efe8a687f5e8d56adae8cc7983798b1b53"
 
 build:
-  number: 0
+  number: 1
   noarch: python
   entry_points:
     - {{ name }} = {{ name }}.app:cli
