@@ -1,6 +1,8 @@
-# Recipes for co2mpas-dependencies with missing packages
+# Instructions and remarks for conda recipes & conda constructor
 
-## Instructions
+## Recipes for co2mpas-dependencies with missing packages
+
+### Instructions
 Ensure that conda is latest, and that *base* env has `conda-build` & `conda-verify` 
 (suggested  by conda-build warn).
 
@@ -47,7 +49,7 @@ Then build all recipes, pining a recent enough numpy (untested for all but the `
     conda build recipes/* --numpy '1.15*'
 
 
-## Build & Upload cross-platform recipes
+### Build & Upload cross-platform recipes
 (VERY ROUGH)
 
 Build any missing recipes in `../recipes` and ensure that all pure-python dependencies
@@ -67,7 +69,7 @@ done
 ```
 
 
-# Anaconda's Constructor profiles
+## Anaconda's Constructor profiles
 
 The specs are contained in `CO2MPAS/constructor.yaml` file.
 
@@ -85,7 +87,7 @@ constructor --version   # must be 3.0.0
 constructor ./CO2MPAS --conda-exe <conda-downloaded-from-the-link-above> 
 ```
 
-## Tip:
+### Tip:
 
 To experiment with menu-items, run this command from the base-folder of the installed-exe 
 and all json files `Menu/` will populate the *Windows* Start-menu items:
@@ -93,7 +95,7 @@ and all json files `Menu/` will populate the *Windows* Start-menu items:
     python Lib/_nsis.py mkmenus
 
 
-## Known Limitations
+### Known Limitations
 
 - When the installation executable is run multiple times with a different target each time,
   (practically installing many co2mpases), the *start-menu* items point the last one (expected).

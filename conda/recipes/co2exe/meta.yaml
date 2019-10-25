@@ -1,0 +1,33 @@
+{% set name = "co2exe" %}
+{% set version = "0.0.1" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+build:
+  number: 0
+  noarch: python
+
+requirements:
+  run:
+    - menuinst          # [win]
+    - console_shortcut  # [win]
+    - co2mpas           =4.1.8
+    - co2mpas_dice      =4.0.4
+    - co2wui            =0.0.9
+    - syncing           =1.0.4
+
+about:
+  home: "https://github.com/JRCSTU/co2wui"
+  license: "European Union Public Licence 1.1 (EUPL 1.1)"
+  license_family: "OTHER"
+  license_file: ../../../LICENSE.txt
+  summary: "WebUI for co2mpas"
+  doc_url: "https://co2mpas.readthedocs.org/"
+  dev_url: "https://github.com/JRCSTU/jrcstu-forge"
+
+extra:
+  recipe-maintainers:
+    - ankostis
+    - stefanocorsi

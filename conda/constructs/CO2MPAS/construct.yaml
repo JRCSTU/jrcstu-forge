@@ -17,19 +17,11 @@ channels:
   - https://repo.anaconda.com/pkgs/r
   - https://repo.anaconda.com/pkgs/msys2
 specs:
-  - python 3.7.*
+  - python        3.7.*
   - conda
-  - menuinst            [win]
-  - console_shortcut    [win]
-  - co2mpas       4.1.8
-  - co2mpas_dice  4.0.4
-  - co2wui        0.0.9
-  - syncing       1.0.4
-  - multiprocess
+  - co2exe        0.0.1
   - xlsxwriter
-  - flask_session
   - git
-  - jsonschema    2.6.0
 
 ## Failing on intallation time when downlloading them from remote,
 #  bc they are needed somehwre...

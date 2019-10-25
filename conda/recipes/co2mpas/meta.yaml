@@ -12,6 +12,7 @@ source:
 build:
   number: 1
   noarch: python
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
   entry_points:
     - {{ name }} = {{ name }}.cli:cli
 
@@ -45,7 +46,6 @@ requirements:
     - graphviz
     - jinja2
     - lxml
-    - menuinst                # [win]
     - networkx==2.3
     - nose
     - matplotlib    
@@ -90,7 +90,6 @@ requirements:
     - lxml
     - networkx==2.3    
     - matplotlib
-    - menuinst                # [win]
     # new jsonschema in 0.3+
     - pandalone >=0.2.4,<0.3
     - pandas >=0.21.0

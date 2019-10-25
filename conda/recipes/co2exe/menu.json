@@ -1,7 +1,14 @@
 {
-    "menu_name": "CO2MPAS-4.1.8",
+    "menu_name": "CO2MPAS-4.1.9",
     "menu_items":
         [
+            {
+                "script": "${PREFIX}/Scripts/co2wui.exe",
+                "scriptarguments": ["run"],
+                "name": "Co2mpas WebUI",
+                "icon": "${MENU_DIR}/co2wui.ico",
+                "desktop": true
+            },
             {
                 "script": "cmd.exe",
                 "scriptarguments": ["/K", "${PYTHON_SCRIPTS}/activate.bat ${PREFIX}"],
@@ -20,6 +27,11 @@
                 "webbrowser": "https://co2mpas.readthedocs.org",
                 "name": "Co2mpas documentation",
                 "icon": "${MENU_DIR}/www.ico"
+            },
+            {
+                "system": "${PREFIX}/Uninstall-co2mpas-4.1.8.exe",
+                "name": "Unistall Co2mpas",
+                "icon": "${MENU_DIR}/co2wui.ico"
             }
         ]
 }

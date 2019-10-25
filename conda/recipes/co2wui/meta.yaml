@@ -12,6 +12,7 @@ source:
 build:
   number: 1
   noarch: python
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
   entry_points:
     - {{ name }} = {{ name }}.app:cli
 
@@ -23,7 +24,6 @@ requirements:
     - flask
     - flask-babel
     - flask_session
-    - menuinst     # [win]
     - pip
     - python >=3.6
     - requests
@@ -39,7 +39,6 @@ requirements:
     - flask
     - flask-babel
     - flask_session
-    - menuinst     # [win]
     - python >=3.6
     - requests
     - ruamel.yaml
