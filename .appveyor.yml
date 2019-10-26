@@ -13,7 +13,6 @@ install:
 
 build_script:
   - constructor.exe conda/constructs/CO2MPAS/
-  - sh: "[ -f ${CO2MPAS_NAME}-jrcstu-Windows-x86_64.exe ]"
 
 artifacts:
   - path: "*.exe"
