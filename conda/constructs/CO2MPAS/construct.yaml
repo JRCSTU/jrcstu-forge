@@ -8,8 +8,7 @@ initialize_by_default: false
 register_python_default: false
 
 channels:
-  - https://conda.anaconda.org/stefanocorsi
-  - https://conda.anaconda.org/ankostis
+  - https://conda.anaconda.org/JRCSTU
   - https://conda.anaconda.org/bioconda
   - https://conda.anaconda.org/conda-forge
   - https://conda.anaconda.org/anaconda
