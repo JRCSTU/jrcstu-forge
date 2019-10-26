@@ -37,8 +37,6 @@ test:
     - wltp
     - wltp.cycles
     - wltp.excel
-  commands:
-    - wltp --help
   requires:
     - coverage
     - nose

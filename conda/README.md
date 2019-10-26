@@ -1,4 +1,28 @@
-# Instructions and remarks for conda recipes & conda constructor
+# Auto-build of conda recipes & constructor EXE in Appveyor CI
+
+See https://github.com/JRCSTU/jrcstu-forge/issues/10#issuecomment-546580904
+
+## Recipes:
+
+Recipes are auto-rebuild by *Appveyor* with a `./build_recipes.sh` script
+which builds all recipe folders in the order listed (that is why they are sorted). 
+
+Due to `--skip-existing` flag, they will not re-build if already in
+(any) channel  9see appveyor for the configured channels).
+To force-build a package, bump its `build/number` in the respective `meta.yaml` 
+recipe.
+
+## EXE:
+
+It is built at the end, if all recipes pass.
+
+The "version" shown on the exe is set by in a `./bump_exe_version.sh` file,
+which "greps" `co2exe` recipe & `constructor.yml`.  It needs 2 arguments:
+-  the 1st is the old version to grep
+-  the 2nd is the new version to replace
+
+Since `constructor.yaml` uses `version` for other purposes,
+
 
 ## Recipes for co2mpas-dependencies with missing packages
 
