@@ -29,7 +29,7 @@
                 "icon": "${MENU_DIR}/www.ico"
             },
             {
-                "system": "${PREFIX}/Uninstall-co2mpas-4.1.8.exe",
+                "system": "${PREFIX}/Uninstall-co2mpas-4.1.9.exe",
                 "name": "Unistall Co2mpas",
                 "icon": "${MENU_DIR}/co2wui.ico"
             }
