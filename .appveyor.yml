@@ -7,6 +7,8 @@ init:
 
 install:
   - conda --version
+  - conda update -n base conda -y
+  - conda info -a
   - conda install constructor -y
 
 build_script:
