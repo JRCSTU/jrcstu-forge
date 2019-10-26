@@ -18,7 +18,7 @@ requirements:
   host:
     - asteval >=0.9.10
     - future >=0.15.0
-    - jsonschema >=2.5, <3
+    - jsonschema >=2.5,<3
     - mock;   # [ py == 27 ]
     - numpy
     - pip
@@ -28,7 +28,7 @@ requirements:
   run:
     - asteval >=0.9.10
     - future >=0.15.0
-    - jsonschema >=2.5, <3
+    - jsonschema >=2.5,<3
     - mock;   # [ py == 27 ]
     - numpy
     - python

@@ -50,7 +50,7 @@ requirements:
     - nose
     - matplotlib    
     # new jsonschema in 0.3+
-    - pandalone >=0.2.4, <0.3
+    - pandalone >=0.2.4,<0.3
     - pandas >=0.21.0
     - pip
     - Pygments
@@ -92,7 +92,7 @@ requirements:
     - matplotlib
     - menuinst                # [win]
     # new jsonschema in 0.3+
-    - pandalone >=0.2.4, <0.3
+    - pandalone >=0.2.4,<0.3
     - pandas >=0.21.0
     - pip
     - Pygments
