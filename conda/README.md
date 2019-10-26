@@ -21,6 +21,8 @@ which "greps" `co2exe` recipe & `constructor.yml`.  It needs 2 arguments:
 -  the 1st is the old version to grep
 -  the 2nd is the new version to replace
 
+Commit afterwards!
+
 Since `constructor.yaml` uses `version` for other purposes,
 
 
