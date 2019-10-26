@@ -1,6 +1,6 @@
 clone_depth: 1
 environment:
-  MINICONDA: C:\Miniconda36-x64
+  MINICONDA: C:\Miniconda37-x64
   MSYS2: C:\msys64
 init:
   - "set PATH=%MINICONDA%;%MINICONDA%\\Scripts;%MINICONDA%\\Library\\bin;%PATH%;%MSYS2%"
