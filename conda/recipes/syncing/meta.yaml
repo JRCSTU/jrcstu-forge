@@ -10,7 +10,7 @@ source:
   sha256: "74f3750939943576fead63efdfae1574e7dbb73a2caf329846e8590ffdc832f5"
 
 build:
-  number: 3
+  number: 4
   noarch: python
   script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
   entry_points:
@@ -26,7 +26,7 @@ requirements:
     - openpyxl
     - pandas
     - pyyaml
-    - schedula
+    - schedula >=0.3.6   # to fix breakage with networkx-2.3-->2.4
     - scipy >=0.3.1
     - setuptools
     # Libs below needed by conda-build docs.
@@ -47,7 +47,7 @@ requirements:
     - openpyxl
     - pandas
     - pyyaml
-    - schedula
+    - schedula >=0.3.6   # to fix breakage with networkx-2.3-->2.4
     - scipy >=0.3.1
     - xlrd >=1.0.0
 
