@@ -20,7 +20,6 @@ install:
     conda config --prepend channels conda-forge
     conda config --prepend channels bioconda
     conda config --prepend channels %MY_CONDA_CHANNEL%
-    conda config --prepend channels local
 
   - conda update -n base conda -y
   - conda info -a
