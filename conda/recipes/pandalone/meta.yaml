@@ -10,7 +10,7 @@ source:
   sha256: "2b62c98236f70d09c109768e22985005f5b0d1d69017fa40401092f9a3079927"
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv"
 
@@ -18,17 +18,16 @@ requirements:
   host:
     - asteval >=0.9.10
     - future >=0.15.0
-    - jsonschema >=2.5,<3
+    - jsonschema ==2.6.0
     - mock;   # [ py == 27 ]
     - numpy
-    - pip
     - python
     - setuptools
     - toolz
   run:
     - asteval >=0.9.10
     - future >=0.15.0
-    - jsonschema >=2.5,<3
+    - jsonschema ==2.6.0
     - mock;   # [ py == 27 ]
     - numpy
     - python
