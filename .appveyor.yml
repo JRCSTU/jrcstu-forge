@@ -22,8 +22,8 @@ install:
     conda config --prepend channels %MY_CONDA_CHANNEL%
 
   - conda update -n base conda -y
-  - conda info -a
   - conda install conda-build conda-verify ripgrep anaconda-client constructor
+  - conda info -a
 
   ## DEBUG
   #- conda config --set verbosity 3
@@ -31,15 +31,14 @@ install:
 build_script:
   ## Build RECIPES
   #
-  #- sh: ./conda/build_recipes.sh
-  - conda build --skip-existing --user %MY_CONDA_CHANNEL% --token %ANACONDA_TOKEN% conda/recipes/pandalone
-  - conda build --skip-existing --user %MY_CONDA_CHANNEL% --token %ANACONDA_TOKEN% conda/recipes/wltp
-  - conda build --skip-existing --user %MY_CONDA_CHANNEL% --token %ANACONDA_TOKEN% conda/recipes/syncing
-  - conda build --skip-existing --user %MY_CONDA_CHANNEL% --token %ANACONDA_TOKEN% conda/recipes/co2mpas
-  - conda build --skip-existing --user %MY_CONDA_CHANNEL% --token %ANACONDA_TOKEN% conda/recipes/co2mpas_dice
-  - conda build --skip-existing --user %MY_CONDA_CHANNEL% --token %ANACONDA_TOKEN% conda/recipes/flask_session
-  - conda build --skip-existing --user %MY_CONDA_CHANNEL% --token %ANACONDA_TOKEN% conda/recipes/co2wui
-  - conda build --skip-existing --user %MY_CONDA_CHANNEL% --token %ANACONDA_TOKEN% conda/recipes/co2exe
+  - conda build --skip-existing --user %MY_CONDA_CHANNEL% --token %ANACONDA_TOKEN% conda\recipes\pandalone\
+  - conda build --skip-existing --user %MY_CONDA_CHANNEL% --token %ANACONDA_TOKEN% conda\recipes\wltp\
+  - conda build --skip-existing --user %MY_CONDA_CHANNEL% --token %ANACONDA_TOKEN% conda\recipes\syncing\  --no-test
+  - conda build --skip-existing --user %MY_CONDA_CHANNEL% --token %ANACONDA_TOKEN% conda\recipes\co2mpas\
+  - conda build --skip-existing --user %MY_CONDA_CHANNEL% --token %ANACONDA_TOKEN% conda\recipes\co2mpas_dice\
+  - conda build --skip-existing --user %MY_CONDA_CHANNEL% --token %ANACONDA_TOKEN% conda\recipes\flask_session\
+  - conda build --skip-existing --user %MY_CONDA_CHANNEL% --token %ANACONDA_TOKEN% conda\recipes\co2wui\
+  - conda build --skip-existing --user %MY_CONDA_CHANNEL% --token %ANACONDA_TOKEN% conda\recipes\co2exe\
 
   ## Build EXE
   #
