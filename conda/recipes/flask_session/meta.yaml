@@ -31,13 +31,7 @@ test:
     - setup.py
   imports:
     - {{ name }}
-  commands:
-    - {{ name }} --help
-    - {{ name }} --version
-    - pytest test --ignore test_session.py
-  requires:
-    - pytest
-    - Flask
+    - {{ name }}.sessions
 
 about:
   home: https://github.com/fengsp/flask-session/
@@ -51,3 +45,4 @@ about:
 extra:
   recipe-maintainers:
     - stefanocorsi
+    - ankostis
