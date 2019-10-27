@@ -10,7 +10,7 @@ source:
   sha256: "39e9bc769b0edba6f9eb902aa7be1850f4ec282e7005fb89f5ba15725115344e"
 
 build:
-  number: 1
+  number: 2
   noarch: python
   script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
   entry_points:
@@ -24,7 +24,7 @@ requirements:
     - pip
     - pyyaml
     - regex
-    - schedula >=0.3.2
+    - schedula >=0.3.6   # to fix breakage with networkx-2.3-->2.4
     - schema
     - scikit-learn
     - scipy
@@ -46,7 +46,7 @@ requirements:
     - graphviz
     - jinja2
     - lxml
-    - networkx==2.3
+    - networkx
     - nose
     - matplotlib    
     # new jsonschema in 0.3+
@@ -66,7 +66,7 @@ requirements:
     - python >=3.6
     - pyyaml
     - regex
-    - schedula >=0.3.2
+    - schedula >=0.3.6   # to fix breakage with networkx-2.3-->2.4
     - schema
     - scikit-learn
     - scipy
@@ -88,7 +88,7 @@ requirements:
     - graphviz
     - jinja2
     - lxml
-    - networkx==2.3    
+    - networkx    
     - matplotlib
     # new jsonschema in 0.3+
     - pandalone >=0.2.4,<0.3
