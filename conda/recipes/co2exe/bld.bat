@@ -4,4 +4,4 @@ copy "%RECIPE_DIR%\menu.ico" "%PREFIX%\Menu\co2wui.ico" && ^
 copy "%RECIPE_DIR%\menu.ico" "%PREFIX%\Menu\co2mpas.ico" && ^
 copy "%RECIPE_DIR%\www.ico" "%PREFIX%\Menu\www.ico" && ^
 copy "%RECIPE_DIR%\folder.ico" "%PREFIX%\Menu\folder.ico" && ^
-copy "%RECIPE_DIR%\console.ico" "%PREFIX%\Menu\console.ico" && ^
+copy "%RECIPE_DIR%\console.ico" "%PREFIX%\Menu\console.ico"
