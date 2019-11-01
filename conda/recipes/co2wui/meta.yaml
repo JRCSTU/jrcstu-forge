@@ -49,7 +49,7 @@ requirements:
 
 test:
   requires:
-    pytest
+    - pytest
   imports:
     - co2wui
     - co2wui.app
@@ -58,15 +58,15 @@ test:
   commands:
     - co2wui --help
     - co2wui --version
-    pytest
+    - pytest
 
 about:
   home: "https://github.com/JRCSTU/co2wui"
   license: "European Union Public Licence 1.1 (EUPL 1.1)"
   license_family: "OTHER"
-  license_file: ""
+  license_file: ../../../LICENSE.txt
   summary: "WebUI for co2mpas"
-  doc_url: https://co2mpas.readthedocs.org/
+  doc_url: "https://co2mpas.readthedocs.org/"
   dev_url: "https://github.com/JRCSTU/co2wui"
 
 extra:
