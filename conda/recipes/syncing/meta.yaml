@@ -40,6 +40,8 @@ requirements:
     - sphinxcontrib-restbuilder
     - matplotlib
     - xlrd >=1.0.0
+    # for `conda build` to run faster
+    - ripgrep
   run:
     - click
     - click-log

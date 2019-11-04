@@ -25,6 +25,8 @@ requirements:
     - pyyaml
     - schedula
     - scipy
+    # for `conda build` to run faster
+    - ripgrep
   run:
     - cryptography
     - lmfit

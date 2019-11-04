@@ -60,6 +60,8 @@ requirements:
     - sphinxcontrib-restbuilder
     - syncing
     - xlrd
+    # for `conda build` to run faster
+    - ripgrep
   run:
     - lmfit >=0.9.7
     - numpy

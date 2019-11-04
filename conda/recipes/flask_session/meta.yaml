@@ -20,6 +20,8 @@ requirements:
   host:
     - python
     - Flask
+    # for `conda build` to run faster
+    - ripgrep
   run:
     - Flask
 

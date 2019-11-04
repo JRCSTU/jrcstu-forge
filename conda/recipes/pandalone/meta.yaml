@@ -24,6 +24,8 @@ requirements:
     - python
     - setuptools
     - toolz
+    # for `conda build` to run faster
+    - ripgrep
   run:
     - asteval >=0.9.10
     - future >=0.15.0

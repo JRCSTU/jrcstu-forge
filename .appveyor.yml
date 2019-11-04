@@ -22,7 +22,7 @@ install:
     conda config --prepend channels %MY_CONDA_CHANNEL%
 
   - conda update -n base conda -y
-  - conda install conda-build conda-verify ripgrep anaconda-client constructor
+  - conda install conda-build conda-verify anaconda-client constructor
   - conda info -a
 
   ## DEBUG

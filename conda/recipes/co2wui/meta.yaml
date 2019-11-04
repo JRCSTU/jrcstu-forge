@@ -32,6 +32,8 @@ requirements:
     - syncing
     - urllib3
     - werkzeug
+    # for `conda build` to run faster
+    - ripgrep
   run:
     - click
     - co2mpas

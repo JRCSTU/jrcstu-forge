@@ -25,6 +25,8 @@ requirements:
     - python
     - setuptools-git
     - six
+    # for `conda build` to run faster
+    - ripgrep
   run:
     - jsonschema >=2.5,<3
     - numpy
