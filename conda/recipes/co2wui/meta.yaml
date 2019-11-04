@@ -48,8 +48,6 @@ requirements:
     - werkzeug
 
 test:
-  requires:
-    - pytest
   imports:
     - co2wui
     - co2wui.app
@@ -58,7 +56,6 @@ test:
   commands:
     - co2wui --help
     - co2wui --version
-    - pytest
 
 about:
   home: "https://github.com/JRCSTU/co2wui"
