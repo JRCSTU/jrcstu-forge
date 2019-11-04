@@ -41,7 +41,6 @@ test:
     - click-log
     - docutils
     - flask
-    - gunicorn
     - jinja2
     - jsonschema
     - mysql-connector-python
