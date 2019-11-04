@@ -22,7 +22,7 @@ fi
 old_ver=$1
 new_ver=$2
 
-for tfile in recipes/80-co2exe/*  constructs/CO2MPAS/construct.yaml; do
+for tfile in recipes/co2exe/*  constructs/CO2MPAS/construct.yaml; do
     if grep -q "$old_ver" "$tfile"; then
         echo "SEDing $tfile..."
         sed -i "s/$old_ver/$new_ver/g"  "$tfile"
