@@ -94,11 +94,11 @@ Vagrant.configure("2") do |config|
       choco install -y --no-progress  --limitoutput C:/vagrant/chocopackages.config
 
       # choco(docker-toolbox): delegate `docker`(client) on Guest --> `dockerd` on the Host.
-      # Rational: 
+      # Rational:
       #   Cannot install the newer docker-for-windows (choco(docker-desktop)) in a VirtualBox VM
-      #   bc it needs Hyper-V (a Type-1 hypervisor), which cannot yet nest inside a VirtualBox, 
+      #   bc it needs Hyper-V (a Type-1 hypervisor), which cannot yet nest inside a VirtualBox,
       #   as explained in: https://medium.com/@peorth/using-docker-with-virtualbox-and-windows-10-b351e7a34adc
-      # TIP: 
+      # TIP:
       #   To enable `dockerd` listening 2375 port on Host, see:
       #   https://gist.github.com/styblope/dc55e0ad2a9848f2cc3307d4819d819f
       # HINT:
@@ -123,6 +123,10 @@ Vagrant.configure("2") do |config|
   config.vm.provision "regedits", type: :shell do |s|
     s.inline = <<-SHELL
       Set-PSDebug -Trace 1
+
+      # Don't shutdown after 1 hour
+      # https://superuser.com/a/722623/227922
+      slmgr /rearm
 
       # Suppress(?) Network-discovery question.
       Set-NetConnectionProfile -Name Network -NetworkCategory Private
