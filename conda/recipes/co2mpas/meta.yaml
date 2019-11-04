@@ -132,7 +132,6 @@ test:
   requires:
     - ddt
     - nose >=1.0
-    - pytest
 
 about:
   home: "https://github.com/JRCTSU/CO2MPAS-TA"
