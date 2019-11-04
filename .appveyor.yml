@@ -42,6 +42,7 @@ build_script:
 
   ## Build EXE
   #
+  - sed -i s/@VER@/%APPVEYOR_BUILD_ID%/  conda/constructs/CO2MPAS/construct.yaml
   - constructor.exe conda/constructs/CO2MPAS/
 
 artifacts:

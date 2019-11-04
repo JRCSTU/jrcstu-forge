@@ -1,7 +1,7 @@
 ## Based on https://medium.com/@Amet13/building-a-cross-platform-python-installer-using-conda-constructor-f91b70d393
 
 name: co2mpas-4.1.9
-version: jrcstu
+version: @VER@
 company: JRC-STU
 
 initialize_by_default: false
@@ -34,6 +34,6 @@ menu_packages:
   - co2wui
 
 license_file: LICENSE.txt
-welcome_image: CO2MPAS_GUI.png      [win] 
+welcome_image: CO2MPAS_GUI.png      [win]
 header_image: CO2MPAS_banner.png    [win]
 icon_image: icon-32.ico        [win]
