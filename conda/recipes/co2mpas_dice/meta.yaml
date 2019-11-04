@@ -1,5 +1,5 @@
 {% set name = "co2mpas_dice" %}
-{% set version = "4.0.4" %}
+{% set version = "4.0.5" %}
 
 package:
   name: "{{ name|lower }}"
@@ -7,7 +7,7 @@ package:
 
 source:
   url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
-  sha256: "b88da1e0e493742014c9f8829e87a9b22570b74cff54e0eeb33a786439bebc05"
+  sha256: "3f8285346686c235c897ec0395692169e9df0437883497815ea5c57fec5e5ee0"
 
 build:
   number: 1
