@@ -21,6 +21,7 @@ specs:
   - co2exe        0.0.1
   - xlsxwriter
   - git
+  - jsonschema    2.6.0
 
 ## Failing on intallation time when downlloading them from remote,
 #  bc they are needed somehwre...
