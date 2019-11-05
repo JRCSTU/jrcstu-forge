@@ -31,14 +31,25 @@ install:
 build_script:
   ## Build RECIPES
   #
-  - conda build --skip-existing --user %MY_CONDA_CHANNEL% --token %ANACONDA_TOKEN% conda\recipes\pandalone\
-  - conda build --skip-existing --user %MY_CONDA_CHANNEL% --token %ANACONDA_TOKEN% conda\recipes\wltp\
-  - conda build --skip-existing --user %MY_CONDA_CHANNEL% --token %ANACONDA_TOKEN% conda\recipes\syncing\  --no-test
-  - conda build --skip-existing --user %MY_CONDA_CHANNEL% --token %ANACONDA_TOKEN% conda\recipes\co2mpas\
-  - conda build --skip-existing --user %MY_CONDA_CHANNEL% --token %ANACONDA_TOKEN% conda\recipes\co2mpas_dice\
-  - conda build --skip-existing --user %MY_CONDA_CHANNEL% --token %ANACONDA_TOKEN% conda\recipes\flask_session\
-  - conda build --skip-existing --user %MY_CONDA_CHANNEL% --token %ANACONDA_TOKEN% conda\recipes\co2wui\
-  - conda build --skip-existing --user %MY_CONDA_CHANNEL% --token %ANACONDA_TOKEN% conda\recipes\co2exe\
+  - ps: |
+      function conda_build($cwd, $pack) {
+        & conda build --skip-existing --user %MY_CONDA_CHANNEL% --token %ANACONDA_TOKEN% "$cwd\conda\recipes\$pack" $args
+      }
+
+      workflow build_recipes($cwd) {
+        parallel {
+          conda_build $cwd  pandalone
+          conda_build $cwd  wltp
+          conda_build $cwd  syncing  --no-test
+          conda_build $cwd  co2mpas
+          conda_build $cwd  co2mpas_dice
+          conda_build $cwd  flask_session
+          conda_build $cwd  co2wui
+          conda_build $cwd  co2exe
+        }
+      }
+      $cwd = (Get-Location)
+      build_recipes -ErrorAction Stop  $cwd
 
   ## Build EXE
   #
