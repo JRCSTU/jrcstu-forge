@@ -6,6 +6,7 @@ company: JRC-STU
 
 initialize_by_default: false
 register_python_default: false
+write_condarc: true
 
 channels:
   - https://conda.anaconda.org/JRCSTU
