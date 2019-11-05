@@ -5,6 +5,9 @@ package:
   name: "{{ name|lower }}"
   version: "{{ version }}"
 
+build:
+  number: 0
+
 requirements:
   run:
     - menuinst          # [win]
