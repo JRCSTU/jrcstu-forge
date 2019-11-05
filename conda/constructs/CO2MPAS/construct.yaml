@@ -19,7 +19,7 @@ channels:
 specs:
   - python        3.7.*
   - conda
-  - co2exe        0.0.2
+  - co2exe        0.0.3
   - xlsxwriter
   - git
   - jsonschema    2.6.0
