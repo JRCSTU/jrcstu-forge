@@ -1,4 +1,4 @@
-if not exist "%PREFIX%\Menu" mkdir "%PREFIX%\Menu" && ^
+if not exist "%PREFIX%\Menu" mkdir "%PREFIX%\Menu"
 copy "%RECIPE_DIR%\menu.json" "%PREFIX%\Menu\co2exe.json" && ^
 copy "%RECIPE_DIR%\menu.ico" "%PREFIX%\Menu\co2wui.ico" && ^
 copy "%RECIPE_DIR%\menu.ico" "%PREFIX%\Menu\co2mpas.ico" && ^
