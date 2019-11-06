@@ -1,5 +1,5 @@
 {% set name = "co2wui" %}
-{% set version = "0.0.10" %}
+{% set version = "0.0.11" %}
 
 package:
   name: "{{ name|lower }}"
@@ -7,7 +7,7 @@ package:
 
 source:
   url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
-  sha256: "6f3a9e84697299bb4f2ec2d70baafe5ff6ba4a0a80c11d7525d4fee94a6aac45"
+  sha256: "e6bc100b2d3ba5e38cd99e932268ac75b9aa1ad6a643b31f8143fdb0342066f5"
 
 build:
   number: 1
