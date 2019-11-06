@@ -23,7 +23,6 @@ requirements:
     - co2mpas_dice
     - flask
     - flask-babel
-    - flask_session
     - pip
     - python >=3.6
     - requests
@@ -40,7 +39,6 @@ requirements:
     - co2mpas_dice
     - flask
     - flask-babel
-    - flask_session
     - python >=3.6
     - requests
     - ruamel.yaml
