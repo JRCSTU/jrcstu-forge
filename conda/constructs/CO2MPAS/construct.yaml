@@ -1,6 +1,6 @@
 ## Based on https://medium.com/@Amet13/building-a-cross-platform-python-installer-using-conda-constructor-f91b70d393
 
-name: co2mpas-4.1.9
+name: co2mpas-4.1.10
 version: @VER@
 company: JRC-STU
 

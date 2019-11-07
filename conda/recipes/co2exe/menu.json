@@ -1,5 +1,5 @@
 {
-    "menu_name": "CO2MPAS-4.1.9",
+    "menu_name": "CO2MPAS-4.1.10",
     "menu_items":
         [
             {
@@ -29,7 +29,7 @@
                 "icon": "${MENU_DIR}/www.ico"
             },
             {
-                "system": "${PREFIX}/Uninstall-co2mpas-4.1.9.exe",
+                "system": "${PREFIX}/Uninstall-co2mpas-4.1.10.exe",
                 "name": "Unistall CO2MPAS",
                 "icon": "${MENU_DIR}/co2wui.ico"
             }

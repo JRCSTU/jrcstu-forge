@@ -1,5 +1,5 @@
 {% set name = "co2mpas" %}
-{% set version = "4.1.9" %}
+{% set version = "4.1.10" %}
 
 package:
   name: "{{ name|lower }}"
@@ -7,7 +7,7 @@ package:
 
 source:
   url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
-  sha256: "695d3a08f6fcbf1b2f58c33689bf276acb10add422640aaf8c9a3ac30392f554"
+  sha256: "35af047929155b80d026e22e9a5085276d5ec3be294607ceebfa805fdb288f28"
 
 build:
   number: 0
