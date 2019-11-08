@@ -1,5 +1,5 @@
 {% set name = "co2wui" %}
-{% set version = "0.0.12" %}
+{% set version = "0.0.13" %}
 
 package:
   name: "{{ name|lower }}"
@@ -7,10 +7,10 @@ package:
 
 source:
   url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
-  sha256: "c1dc8e0e77b83fba598b6a247d6dc574d7334cda6b031c8591eb4ee180f0311f"
+  sha256: "a6b47ef41c8890fca531cc82d295eda91d77c88bce342090018a42c23f598514"
 
 build:
-  number: 1
+  number: 0
   noarch: python
   script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
   entry_points:
